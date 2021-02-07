@@ -7,7 +7,12 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "bundle-android": "yarn bundle-option -- --platform android --bundle-output bundle/index.android.bundle.js",
+    "bundle-option": "react-native bundle --dev false --entry-file index.js",
+    "bundle-android-apply": "shx cp -R bundle/android .",
+    "android-release": "yarn bundle-android && yarn bundle-android-apply && yarn android-build",
+    "android-build": "cd android && ./gradlew assembleRelease --stacktrace"
   },
   "dependencies": {
     "@babel/plugin-proposal-decorators": "^7.12.13",
@@ -65,6 +70,7 @@
     "jest": "^25.1.0",
     "metro-react-native-babel-preset": "^0.59.0",
     "react-test-renderer": "16.13.1",
+    "shx": "^0.3.3",
     "typescript": "^3.8.3",
     "typescript-eslint-parser": "22.0.0"
   },

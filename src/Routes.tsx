@@ -1,14 +1,17 @@
 import React from 'react'
-import { Platform, View, Image } from 'react-native'
+import { Platform, View, Image, TouchableOpacity } from 'react-native'
 import { createStackNavigator } from 'react-navigation-stack'
 import {
   createAppContainer
 } from 'react-navigation'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
-import { sizes } from '~/src/themes'
+import { sizes, s } from '~/src/themes'
 import colors from './themes/colors'
 import Home from './scene/Home'
 import MovieDetail from './scene/MovieDetail'
+import { Text } from '~/src/components/Text'
+import { goBack } from './common/navigate'
+
 
 
 // import { createBottomTabNavigator } from 'react-navigation-tabs'
@@ -102,18 +105,23 @@ const navigationOptions = {
     flexGrow: 1,
     fontFamily: 'SukhumvitSet',
     fontSize: 20,
-    color: 'black' //#FFDB61
+    color: 'transparent' //#FFDB61
   },
   drawerLockMode: 'locked-open',
-  // gesturesEnabled: false,
   headerMode: 'screen',
   mode: Platform.OS === 'ios' ? 'modal' : 'card',
   cardStack: {
     gesturesEnabled: false
   },
+  
   headerLeft: () => (
     // <BackNavbar onPress={() => { goBack() }} />
-    <View />
+    <TouchableOpacity style={[s.ml2, s.flx_row, s.aic]} onPress={() => goBack()} >
+      <Image style={[{ width: sizes.w2, height: sizes.h2 }]}
+        source={require('~/src/assets/images/arrow_back.png')} />
+      <Text style={[s.f5, s.white, s.b, s.flx_i]} ellipsizeMode='tail' numberOfLines={1}>{'Back'}</Text>
+
+    </TouchableOpacity>
   )
 }
 
@@ -128,9 +136,8 @@ const Routes = createStackNavigator({
     navigationOptions: (): any => ({
       ...navigationOptions,
       headerStyle: {
-        backgroundColor: 'red'
+        backgroundColor: 'black'
       },
-      title: 'Detail'
     })
   },
 }, {

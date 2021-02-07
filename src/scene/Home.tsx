@@ -83,21 +83,23 @@ const Home = observer((props) => {
     }
     const renderItemHorizontal = (item) => {
         return (
-            <View style={[{ width: sizes.w3 * 1.7 }]}>
-                <View style={[s.mv1, s.flx_col]}>
-                    <CardView style={[{ height: sizes.h4, overflow: 'hidden' }]}>
-                        <Image resizeMode={'cover'} style={[{ flex: 1 }]} source={{ uri: 'https://image.tmdb.org/t/p/w500' + item.poster_path }} />
-                    </CardView>
-                    <View style={[s.flx_row, s.mt3, s.aic]}>
-                        <Text style={[s.f4, s.white, s.b, s.flx_i]} ellipsizeMode='tail' numberOfLines={1}>{item.title}</Text>
-                        <Text style={[s.f8, s.gray_60, s.b, s.ml1, s.mt1]}>{`(${moment(item.release_date).format('YYYY')})`}</Text>
-                    </View>
-                    <View style={[s.flx_row, s.aic]}>
-                        <Image resizeMode={'contain'} style={[{ width: sizes.w1, height: sizes.h1, tintColor: colors.accent }]} source={require('~/src/assets/images/star.png')} />
-                        <Text style={[s.f16, s.gray_60, s.b, s.ml2]}>{item.vote_average}</Text>
+            <TouchableOpacity  onPress={() => _gotoMovieDetail(item)}>
+                <View style={[{ width: sizes.w3 * 1.7 }]}>
+                    <View style={[s.mv1, s.flx_col]}>
+                        <CardView style={[{ height: sizes.h4, overflow: 'hidden' }]}>
+                            <Image resizeMode={'cover'} style={[{ flex: 1 }]} source={{ uri: 'https://image.tmdb.org/t/p/w500' + item.poster_path }} />
+                        </CardView>
+                        <View style={[s.flx_row, s.mt3, s.aic]}>
+                            <Text style={[s.f4, s.white, s.b, s.flx_i]} ellipsizeMode='tail' numberOfLines={1}>{item.title}</Text>
+                            <Text style={[s.f8, s.gray_60, s.b, s.ml1, s.mt1]}>{`(${moment(item.release_date).format('YYYY')})`}</Text>
+                        </View>
+                        <View style={[s.flx_row, s.aic]}>
+                            <Image resizeMode={'contain'} style={[{ width: sizes.w1, height: sizes.h1, tintColor: colors.accent }]} source={require('~/src/assets/images/star.png')} />
+                            <Text style={[s.f16, s.gray_60, s.b, s.ml2]}>{item.vote_average}</Text>
+                        </View>
                     </View>
                 </View>
-            </View>
+            </TouchableOpacity>
         );
     }
 
@@ -110,7 +112,7 @@ const Home = observer((props) => {
                     </CardView>
                     <View style={[s.mh2, s.flx_col, s.jcc, s.flx_i]}>
                         <View style={[s.flx_row, s.aic]}>
-                        <Text style={[s.f4, s.white, s.b, s.flx_i]} ellipsizeMode='tail' numberOfLines={1}>{item.title}</Text>
+                            <Text style={[s.f4, s.white, s.b, s.flx_i]} ellipsizeMode='tail' numberOfLines={1}>{item.title}</Text>
                             <Text style={[s.f8, s.gray_60, s.b, s.ml1, s.mt1]}>{`(${moment(item.release_date).format('YYYY')})`}</Text>
                         </View>
                         <View style={[s.flx_row, s.aic]}>
@@ -133,11 +135,8 @@ const Home = observer((props) => {
     }
 
     const _gotoMovieDetail = (item: any) => {
-        try {
-            route('MovieDetail', { title: item.title })
-        } catch (error) {
-            alert(error)
-        }
+        route('MovieDetail', { title: item.title, poster_path: item.poster_path, release_date: item.release_date, vote_average: item.vote_average, overview: item.overview, backdrop_path: item.backdrop_path })
+
     }
 
     const _onEndReached = () => {

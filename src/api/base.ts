@@ -25,9 +25,7 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use((response) => {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
-    setTimeout(() => {
-        stores.loading.stopLoading()
-    }, 1000)
+    stores.loading.stopLoading()
     return response
 }, (error) => {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
