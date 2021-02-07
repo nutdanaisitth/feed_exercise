@@ -1,0 +1,49 @@
+import { StackActions, NavigationActions } from 'react-navigation'
+import stores from '~/src/stores'
+
+
+
+export function route (routeName: any, params = {}) {
+  let { navigate } = stores.navigation.navigation
+  // console.log(stores)
+  navigate(routeName, { ...params })
+}
+
+export function replaceRoute (routeArray: any, index: any) {
+  let { reset } = stores.navigation.navigation
+  const newRoutes = routeArray.map((route: any) => NavigationActions.navigate({ routeName: route.routeName }))
+  reset(newRoutes, index)
+  // replace(routeName, { ...params })
+}
+
+
+export function dispatch (routeName: any, params = {}, key = false) {
+  let { dispatch } = stores.navigation.navigation
+  let resetAction: any
+  if (!key) {
+    resetAction = StackActions.reset({
+      index: 0,
+      key: null,
+      actions: [
+        NavigationActions.navigate({ routeName, params })
+      ]
+    })
+  } else {
+    resetAction = StackActions.reset({
+      index: 0,
+      actions: [
+        NavigationActions.navigate({ routeName, params })
+      ]
+    })
+  }
+
+  dispatch(resetAction)
+}
+
+export function goBack () {
+  stores.navigation.navigation.goBack(null)
+}
+
+export function getRouteName () {
+  return stores.navigation.navigation
+}
