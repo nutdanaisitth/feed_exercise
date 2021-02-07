@@ -14,7 +14,7 @@ import {
     TouchableOpacity
 } from 'react-native'
 import { observer, inject } from 'mobx-react'
-import Routes from '~/src/Routes'
+// import Routes from '~/src/Routes'
 import { sizes, Colors, s } from '~/src/themes'
 import { Text } from '~/src/components/Text'
 import colors from '../themes/colors'
@@ -32,9 +32,9 @@ import { route } from '../common/navigate'
 const PROFILE_IMAGE_SIZE: number = sizes.h3 / 1.5
 
 const Home = observer((props) => {
-    // const { loading, navigation } = props
-    const refSwipeable = useRef<SwipeablePanel>()
 
+    let refSwipeable: SwipeablePanel = useRef<SwipeablePanel>()
+    let refFlatlist: any = useRef<FlatList>()
 
 
     useEffect(() => {
@@ -42,20 +42,16 @@ const Home = observer((props) => {
         getList(1, 'refresh')
     }, [])
 
-    const [panelProps, setPanelProps] = useState({
-        fullWidth: true,
-        openLarge: true,
-        showCloseButton: false,
-        onClose: () => closePanel(),
-        onPressCloseButton: () => closePanel(),
-        // ...or any prop you want
-    });
+
     const [isPanelActive, setIsPanelActive] = useState(false);
     const [resultList, setResultList] = useState([] as any);
-
     const [page, setPage] = useState(0);
     const [isNext, setIsNext] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [isLarge, setisLarge] = useState(false);
+    const [seeList, setSeeList] = useState('See All');
+
+
 
 
 
@@ -67,7 +63,24 @@ const Home = observer((props) => {
     const closePanel = () => {
 
         setIsPanelActive(false);
+        setTimeout(() => {
+            openPanel();
+        }, 1000);
     };
+
+    const onPressSeeAll = () => {
+        if (!isLarge) {
+            refSwipeable._animateToLargePanel()
+            setisLarge(true)
+            setSeeList('Minimize')
+        } else {
+            refSwipeable._animateToSmallPanel()
+            setisLarge(false)
+            setSeeList('See All')
+            refFlatlist.scrollToOffset({ animated: true, offset: 0 })
+
+        }
+    }
     const renderItemHorizontal = (item) => {
         return (
             <View style={[{ width: sizes.w3 * 1.7 }]}>
@@ -97,7 +110,7 @@ const Home = observer((props) => {
                     </CardView>
                     <View style={[s.mh2, s.flx_col, s.jcc, s.flx_i]}>
                         <View style={[s.flx_row, s.aic]}>
-                            <Text style={[s.f4, s.white, s.b]}>{item.title}</Text>
+                        <Text style={[s.f4, s.white, s.b, s.flx_i]} ellipsizeMode='tail' numberOfLines={1}>{item.title}</Text>
                             <Text style={[s.f8, s.gray_60, s.b, s.ml1, s.mt1]}>{`(${moment(item.release_date).format('YYYY')})`}</Text>
                         </View>
                         <View style={[s.flx_row, s.aic]}>
@@ -164,7 +177,7 @@ const Home = observer((props) => {
 
     return (
         <View style={{ flex: 1, backgroundColor: Colors.black }}>
-            <View style={{ flex: 0.55 }}>
+            <View style={{}}>
                 <View style={[s.flx_row, s.mh3, s.mt3, s.mb2, s.jcsb, s.aic]}>
                     <Text style={[s.mv2, s.f3, s.white, s.b]}>{'Movies'}</Text>
                     <Image
@@ -192,31 +205,48 @@ const Home = observer((props) => {
                     renderItem={({ item }) => renderItemHorizontal(item)}
                 />
             </View>
-            {/* <SwipeablePanel ref={refSwipeable}
-						isActive={true}
-						onClose={() => closePanel()}
-						fullWidth={true}> */}
-            <View style={{ flex: 0.45, marginTop: -sizes.mt2 }}>
-                <View style={[s.flx_row, s.jcsb, s.aic]}>
-                    <Text style={[s.mv1, s.f4, s.mh3, s.white, s.b]}>{'Trending'}</Text>
-                    <TouchableOpacity>
-                        <Text style={[s.mv1, s.f10, s.mh3, s.sky_blue]}>{'(See all)'}</Text>
-                    </TouchableOpacity>
+            <SwipeablePanel
+                callback={(value) => {
+                    if (value > 125) {
+                        setisLarge(true)
+                        setSeeList('Minimize')
+                    }
+                    else {
+                        setisLarge(false)
+                        setSeeList('See All')
+                        if (refFlatlist != null) {
+                            refFlatlist.scrollToOffset({ animated: true, offset: 0 });
+                        }
+                    }
+                }}
+                ref={(ref) => refSwipeable = ref}
+                isActive={isPanelActive}
+                onClose={() => closePanel()}
+                fullWidth={true}>
+                <View style={{ flex: 1 }}>
+                    <View style={[s.flx_row, s.jcsb, s.aic]}>
+                        <Text style={[s.mv1, s.f4, s.mh3, s.white, s.b]}>{'Trending'}</Text>
+                        <TouchableOpacity onPress={onPressSeeAll}>
+                            <Text style={[s.mv1, s.f10, s.mh3, s.sky_blue]}>{`(${seeList})`}</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{ flex: 1 }}>
+                        <FlatList
+                            ref={(ref) => (refFlatlist = ref || undefined)}
+                            style={[s.pv1, { marginBottom: sizes.h3 }]}
+                            showsVerticalScrollIndicator={true}
+                            ListFooterComponent={<View style={[s.pr3]} />}
+                            ListHeaderComponent={<View style={[s.pl3]} />}
+                            data={resultList}
+                            refreshing={isLoading}
+                            onRefresh={_handleRefresh}
+                            onEndReached={_onEndReached}
+                            keyExtractor={(item, index) => index.toString()}
+                            renderItem={({ item }) => renderItemVertical(item)}
+                        />
+                    </View>
                 </View>
-                <FlatList
-                    style={[s.pv1, s.flx_i, { marginBottom: sizes.h3 * 1.2 }]}
-                    showsVerticalScrollIndicator={true}
-                    ListFooterComponent={<View style={[s.pr3]} />}
-                    ListHeaderComponent={<View style={[s.pl3]} />}
-                    data={resultList}
-                    refreshing={isLoading}
-                    onRefresh={_handleRefresh}
-                    onEndReached={_onEndReached}
-                    keyExtractor={(item, index) => index.toString()}
-                    renderItem={({ item }) => renderItemVertical(item)}
-                />
-            </View>
-            {/* </SwipeablePanel> */}
+            </SwipeablePanel>
 
 
         </View>
