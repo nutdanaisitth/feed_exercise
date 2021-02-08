@@ -14,25 +14,6 @@ import { goBack } from './common/navigate'
 
 
 
-// import { createBottomTabNavigator } from 'react-navigation-tabs'
-
-// import { observer, inject } from 'mobx-react'
-
-// import { CustomHeader, LinearGradientHeader, BackNavbar, SettingNavbar } from '~/src/components/Nav/Nav'
-
-// import MainScene from '~/src/scene/MainScene'
-// import ListScene from '~/src/scene/ListScene'
-// import MapScene from '~/src/scene/MapScene'
-// import DetailScene from '~/src/scene/DetailScene'
-// import DetectScene from '~/src/scene/DetectScene'
-
-// import colors from '~/src/common/colors'
-// import { goBack, route } from '~/src/common/navigate'
-// 
-// import stores from '~/src/stores'
-
-
-
 const BottomTabNavigator = createBottomTabNavigator(
   {
     Home: {
@@ -58,9 +39,7 @@ const BottomTabNavigator = createBottomTabNavigator(
     Profile: {
       screen: () => <View />,
       navigationOptions: () => ({
-        // tabBarOnPress: () => {
-        //   // route('Create')
-        // },
+
         title: 'Profile',
         tabBarIcon: ({ tintColor }) => (
           <Image style={[{ width: sizes.w2, height: sizes.h2, tintColor }]}
@@ -115,7 +94,6 @@ const navigationOptions = {
   },
   
   headerLeft: () => (
-    // <BackNavbar onPress={() => { goBack() }} />
     <TouchableOpacity style={[s.ml2, s.flx_row, s.aic]} onPress={() => goBack()} >
       <Image style={[{ width: sizes.w2, height: sizes.h2 }]}
         source={require('~/src/assets/images/arrow_back.png')} />

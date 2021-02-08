@@ -8,7 +8,6 @@ const { width, height } = Dimensions.get("window");
 import { isIphoneX } from "react-native-iphone-x-helper";
 
 import Colors from "../themes/colors";
-// import { AppStyle, TachyonsTypeScale, ColorStyle, Style, Sizes } from './styles.d'
 import { AppStyle, ColorStyle, Style, Sizes } from "./styles.d";
 
 // 320,568 - ip 5 s, ip se
@@ -71,32 +70,7 @@ export const navbar: number = NAVBAR
 export const tabbar: number = sizes.h3;
 export const button: number = sizes.h3 * 0.75;
 
-// const textStyle: TachyonsTypeScale = {
-//     f1: {
-//         fontSize: 72
-//     },
-//     f2: {
-//         fontSize: 56
-//     },
-//     f3: {
-//         fontSize: 50
-//     },
-//     f4: {
-//         fontSize: 32
-//     },
-//     f5: {
-//         fontSize: 24
-//     },
-//     f6: {
-//         fontSize: 22
-//     },
-//     f_headline: {
-//         fontSize: 72
-//     },
-//     f_subheadline: {
-//         fontSize: 56
-//     },
-// }
+
 
 const appStyle: AppStyle = {
   pt_navbar: Platform.select({

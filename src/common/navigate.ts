@@ -5,7 +5,6 @@ import stores from '~/src/stores'
 
 export function route (routeName: any, params = {}) {
   let { navigate } = stores.navigation.navigation
-  // console.log(stores)
   navigate(routeName, { ...params })
 }
 
@@ -13,7 +12,6 @@ export function replaceRoute (routeArray: any, index: any) {
   let { reset } = stores.navigation.navigation
   const newRoutes = routeArray.map((route: any) => NavigationActions.navigate({ routeName: route.routeName }))
   reset(newRoutes, index)
-  // replace(routeName, { ...params })
 }
 
 

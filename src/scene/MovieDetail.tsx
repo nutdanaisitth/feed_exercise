@@ -16,7 +16,6 @@ import {
 import { observer, inject } from 'mobx-react'
 import { Text } from '~/src/components/Text'
 
-import Routes from '~/src/Routes'
 import { s } from '~/src/themes'
 import { sizes } from 'react-native-style-tachyons'
 import { CardView } from '../components/Cardview'
@@ -24,19 +23,11 @@ import moment from 'moment'
 import colors from '../themes/colors'
 import { ScrollView } from 'react-native-gesture-handler'
 
-
-// import { ModalAlertMessage } from '~/src/components/Modal'
-// import { renderif } from '~/src/utils/renderif'
-// import { setDeviceHeader, setLanguage } from '~/src/api'
-
-const { width } = Dimensions.get('window')
 const MovieDetail = observer((props) => {
-    const navigationRef = useRef<any>()
 
 
 
     useEffect(() => {
-        // navigation.updateNavigation(navigationRef.current._navigation)
     }, [])
 
     return (

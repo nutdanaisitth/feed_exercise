@@ -26,9 +26,6 @@ import moment from 'moment'
 import { route } from '../common/navigate'
 
 
-// import { ModalAlertMessage } from '~/src/components/Modal'
-// import { renderif } from '~/src/utils/renderif'
-// import { setDeviceHeader, setLanguage } from '~/src/api'
 const PROFILE_IMAGE_SIZE: number = sizes.h3 / 1.5
 
 const Home = observer((props) => {
@@ -49,9 +46,7 @@ const Home = observer((props) => {
     const [isNext, setIsNext] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [isLarge, setisLarge] = useState(false);
-    const [seeList, setSeeList] = useState('See All');
-
-
+    const [expand, setExpand] = useState('Expand');
 
 
 
@@ -68,15 +63,15 @@ const Home = observer((props) => {
         }, 1000);
     };
 
-    const onPressSeeAll = () => {
+    const onPressExpand = () => {
         if (!isLarge) {
             refSwipeable._animateToLargePanel()
             setisLarge(true)
-            setSeeList('Minimize')
+            setExpand('Minimize')
         } else {
             refSwipeable._animateToSmallPanel()
             setisLarge(false)
-            setSeeList('See All')
+            setExpand('Expand')
             refFlatlist.scrollToOffset({ animated: true, offset: 0 })
 
         }
@@ -208,11 +203,11 @@ const Home = observer((props) => {
                 callback={(value) => {
                     if (value > 125) {
                         setisLarge(true)
-                        setSeeList('Minimize')
+                        setExpand('Minimize')
                     }
                     else {
                         setisLarge(false)
-                        setSeeList('See All')
+                        setExpand('Expand')
                         if (refFlatlist != null) {
                             refFlatlist.scrollToOffset({ animated: true, offset: 0 });
                         }
@@ -225,8 +220,8 @@ const Home = observer((props) => {
                 <View style={{ flex: 1 }}>
                     <View style={[s.flx_row, s.jcsb, s.aic]}>
                         <Text style={[s.mv1, s.f4, s.mh3, s.white, s.b]}>{'Trending'}</Text>
-                        <TouchableOpacity onPress={onPressSeeAll}>
-                            <Text style={[s.mv1, s.f10, s.mh3, s.sky_blue]}>{`(${seeList})`}</Text>
+                        <TouchableOpacity onPress={onPressExpand}>
+                            <Text style={[s.mv1, s.f10, s.mh3, s.sky_blue]}>{`(${expand})`}</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={{ flex: 1 }}>

@@ -8,7 +8,7 @@
 
 import React, { useState, useEffect, useContext } from 'react'
 
-// import SplashScreen from 'react-native-splash-screen'
+import SplashScreen from 'react-native-splash-screen'
 
 import { Provider } from 'mobx-react'
 
@@ -25,11 +25,10 @@ console.disableYellowBox = true // disable warning box
 
 
 const App = () => {
-  // const [ showRoute, setShowRoute ] = useState(false)
 
   useEffect(() => {
     Orientation.lockToPortrait()
-    // SplashScreen.hide()
+    SplashScreen.hide()
   }, [])
   return (
     <SafeAreaProvider>

@@ -15,11 +15,7 @@ import {
 import { observer, inject } from 'mobx-react'
 import Routes from '~/src/Routes'
 import { s } from '~/src/themes'
-import { sizes } from 'react-native-style-tachyons'
 
-// import { ModalAlertMessage } from '~/src/components/Modal'
-// import { renderif } from '~/src/utils/renderif'
-// import { setDeviceHeader, setLanguage } from '~/src/api'
 
 const { width } = Dimensions.get('window')
 const Root = observer((props) => {
