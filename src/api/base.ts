@@ -6,7 +6,6 @@ export const api = axios.create({
     baseURL: Apis.baseURL,
 })
 
-
 // Add a request interceptor
 api.interceptors.request.use((config) => {
     // Do something before request is sent
@@ -34,3 +33,4 @@ api.interceptors.response.use((response) => {
     stores.loading.stopLoading()
 
 })
+

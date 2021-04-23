@@ -16,7 +16,7 @@ export const styles = {
 						shadowRadius: 1
 					},
 					android: {
-						elevation: 3
+						elevation: 5
 					}
 				} 
 			)

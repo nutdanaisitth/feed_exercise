@@ -8,7 +8,6 @@ const BLACK: string = '#000000' // equal #393939 with 90% opacity
 const WHITE: string = '#FFFFFF'
 const GRAY_LIGHT: string = '#979797'
 const GRAY: string = '#F0F0F0'
-const SHADOW: string = '#393939'
 const fadePURPLE: string = '#5239FF'
 const BLUE: string = '#3586FF'
 
@@ -25,7 +24,6 @@ export default {
 	gray: GRAY,
 	fadePURPLE: fadePURPLE,
 	blue: BLUE,
-	forgotPinText: '#7E2512',
 	gray69: '#696969',
 	grayD2: '#D2D2D2',
 	shadowColor: 'rgba(0, 0, 0, .6)',

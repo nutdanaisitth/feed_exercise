@@ -1,5 +1,5 @@
 {
-  "name": "FeedExercise",
+  "name": "SearchExercise",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -14,7 +14,6 @@
     "android-release": "yarn bundle-android && yarn bundle-android-apply && yarn android-build",
     "android-build": "cd android && ./gradlew assembleRelease --stacktrace",
     "postinstall": "patch-package "
-
   },
   "dependencies": {
     "@babel/plugin-proposal-decorators": "^7.12.13",
@@ -28,10 +27,11 @@
     "babel-preset-mobx": "^2.0.0",
     "babel-preset-stage-0": "^6.24.1",
     "customize-cra": "^1.0.0",
+    "lodash": "^4.17.21",
     "mobx": "5.15.1",
     "mobx-react": "6.1.4",
     "moment": "^2.29.1",
-    "patch-package": "6.0.2",
+    "patch-package": "^6.0.2",
     "react": "16.13.1",
     "react-app-rewired": "^2.1.8",
     "react-native": "0.63.4",
@@ -41,11 +41,13 @@
     "react-native-reanimated": "^1.13.2",
     "react-native-safe-area-context": "^3.1.9",
     "react-native-screens": "^2.17.1",
+    "react-native-search-box": "^0.0.20",
     "react-native-splash-screen": "^3.2.0",
     "react-native-style-tachyons": "^4.2.0",
     "react-navigation": "^4.4.3",
     "react-navigation-stack": "^2.10.2",
     "react-navigation-tabs": "^2.10.1",
+    "render-if": "^0.1.1",
     "rn-swipeable-panel": "1.0.8"
   },
   "devDependencies": {

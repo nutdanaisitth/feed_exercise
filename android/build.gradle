@@ -6,6 +6,7 @@ buildscript {
         minSdkVersion = 16
         compileSdkVersion = 29
         targetSdkVersion = 29
+        JAVA_HOME = 'C:\\Program Files\\Android\\Android Studio\\jre\\jre'
     }
     repositories {
         google()

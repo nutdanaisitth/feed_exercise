@@ -1,4 +1,4 @@
-package com.feedexercise;
+package com.searchexercise;
 
 import com.facebook.react.ReactActivity;
 

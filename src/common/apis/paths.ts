@@ -1,6 +1,6 @@
 
 export const Paths = {
-    getList: `/3/movie/now_playing`,
+    getList: `/search/repositories`,
   }
   
   export default Paths

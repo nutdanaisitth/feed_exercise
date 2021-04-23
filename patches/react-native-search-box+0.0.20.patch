@@ -1,0 +1,22 @@
+diff --git a/node_modules/react-native-search-box/index.js b/node_modules/react-native-search-box/index.js
+index 5e387c8..ceaadd0 100644
+--- a/node_modules/react-native-search-box/index.js
++++ b/node_modules/react-native-search-box/index.js
+@@ -280,7 +280,8 @@ class Search extends PureComponent {
+         style={[
+           styles.container,
+           this.props.backgroundColor && {
+-            backgroundColor: this.props.backgroundColor
++            backgroundColor: this.props.backgroundColor,
++            borderRadius: this.props.borderRadius
+           }
+         ]}
+         onLayout={this.onLayout}
+@@ -520,6 +521,7 @@ Search.propTypes = {
+    * styles
+    */
+   backgroundColor: PropTypes.string,
++  borderRadius: PropTypes.number,
+   placeholderTextColor: PropTypes.string,
+   titleCancelColor: PropTypes.string,
+   tintColorSearch: PropTypes.string,

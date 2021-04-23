@@ -35,7 +35,7 @@ const Root = observer((props) => {
                 loading.isLoading &&
                 <View style={[s.flx_i, s.absolute_fill, s.bg_transparent_50, s.aic, s.jcc,]}>
                     <Image
-                        source={require('~/src/assets/images/34441-movie-clapboard.gif')}
+                        source={require('~/src/assets/images/loading.gif')}
                         style={{ width: width / 3, height: width / 3}}
                     />
                 </View>

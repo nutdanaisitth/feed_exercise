@@ -14,108 +14,50 @@ import {
     TouchableOpacity
 } from 'react-native'
 import { observer, inject } from 'mobx-react'
-// import Routes from '~/src/Routes'
-import { sizes, Colors, s } from '~/src/themes'
+import { sizes, s } from '~/src/themes'
 import { Text } from '~/src/components/Text'
 import colors from '../themes/colors'
 import { CardView } from '../components/Cardview'
-import SwipeablePanel from 'rn-swipeable-panel'
 import { api } from '~/src/api'
 import { Apis } from '~/src/common/apis'
-import moment from 'moment'
-import { route } from '../common/navigate'
+import Search from 'react-native-search-box'
+import _ from 'lodash'
+import axios from 'axios'
 
 
-const PROFILE_IMAGE_SIZE: number = sizes.h3 / 1.5
+
+
+
 
 const Home = observer((props) => {
 
-    let refSwipeable: SwipeablePanel = useRef<SwipeablePanel>()
-    let refFlatlist: any = useRef<FlatList>()
+    let refSearch: Search = useRef<Search>()
+    let cancel
+    const CancelToken = axios.CancelToken;
+
+    // let refFlatlist: any = useRef<FlatList>()
 
 
     useEffect(() => {
-        openPanel()
-        getList(1, 'refresh')
+        refSearch.onFocus()
     }, [])
 
 
-    const [isPanelActive, setIsPanelActive] = useState(false);
     const [resultList, setResultList] = useState([] as any);
-    const [page, setPage] = useState(0);
-    const [isNext, setIsNext] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
-    const [isLarge, setisLarge] = useState(false);
-    const [expand, setExpand] = useState('Expand');
 
 
-
-
-    const openPanel = () => {
-        setIsPanelActive(true);
-    };
-
-    const closePanel = () => {
-
-        setIsPanelActive(false);
-        setTimeout(() => {
-            openPanel();
-        }, 1000);
-    };
-
-    const onPressExpand = () => {
-        if (!isLarge) {
-            refSwipeable._animateToLargePanel()
-            setisLarge(true)
-            setExpand('Minimize')
-        } else {
-            refSwipeable._animateToSmallPanel()
-            setisLarge(false)
-            setExpand('Expand')
-            refFlatlist.scrollToOffset({ animated: true, offset: 0 })
-
-        }
-    }
-    const renderItemHorizontal = (item) => {
-        return (
-            <TouchableOpacity  onPress={() => _gotoMovieDetail(item)}>
-                <View style={[{ width: sizes.w3 * 1.7 }]}>
-                    <View style={[s.mv1, s.flx_col]}>
-                        <CardView style={[{ height: sizes.h4, overflow: 'hidden' }]}>
-                            <Image resizeMode={'cover'} style={[{ flex: 1 }]} source={{ uri: 'https://image.tmdb.org/t/p/w500' + item.poster_path }} />
-                        </CardView>
-                        <View style={[s.flx_row, s.mt3, s.aic]}>
-                            <Text style={[s.f4, s.white, s.b, s.flx_i]} ellipsizeMode='tail' numberOfLines={1}>{item.title}</Text>
-                            <Text style={[s.f8, s.gray_60, s.b, s.ml1, s.mt1]}>{`(${moment(item.release_date).format('YYYY')})`}</Text>
-                        </View>
-                        <View style={[s.flx_row, s.aic]}>
-                            <Image resizeMode={'contain'} style={[{ width: sizes.w1, height: sizes.h1, tintColor: colors.accent }]} source={require('~/src/assets/images/star.png')} />
-                            <Text style={[s.f16, s.gray_60, s.b, s.ml2]}>{item.vote_average}</Text>
-                        </View>
-                    </View>
-                </View>
-            </TouchableOpacity>
-        );
-    }
 
     const renderItemVertical = (item) => {
         return (
-            <TouchableOpacity style={[s.mh3]} onPress={() => _gotoMovieDetail(item)}>
-                <View style={[s.mv1, s.flx_row]}>
-                    <CardView style={[{ height: sizes.h3 * 1.4, width: sizes.w3 * 1.2, overflow: 'hidden' }]}>
-                        <Image resizeMode={'cover'} style={[{ flex: 1 }]} source={{ uri: 'https://image.tmdb.org/t/p/w500' + item.poster_path }} />
+            <TouchableOpacity style={[s.mh3, s.mv2, s.br4, s.bg_gray_40,]}>
+                <View style={[s.flx_row,]}>
+                    <CardView style={[{ height: sizes.h3 * 1.2, width: sizes.w3 * 1.2, overflow: 'hidden' }]}>
+                        <Image resizeMode={'cover'} style={[{ flex: 1 }]} source={{ uri: item.owner.avatar_url }} />
                     </CardView>
                     <View style={[s.mh2, s.flx_col, s.jcc, s.flx_i]}>
                         <View style={[s.flx_row, s.aic]}>
-                            <Text style={[s.f4, s.white, s.b, s.flx_i]} ellipsizeMode='tail' numberOfLines={1}>{item.title}</Text>
-                            <Text style={[s.f8, s.gray_60, s.b, s.ml1, s.mt1]}>{`(${moment(item.release_date).format('YYYY')})`}</Text>
-                        </View>
-                        <View style={[s.flx_row, s.aic]}>
-                            <Image resizeMode={'contain'} style={[{ width: sizes.w1, height: sizes.h1, tintColor: colors.accent }]} source={require('~/src/assets/images/star.png')} />
-                            <Text style={[s.f16, s.gray_60, s.b, s.ml2]}>{item.vote_average}</Text>
-                        </View>
-                        <View style={[s.flx_row, s.aic]}>
-                            <Text style={[s.f16, s.gray_60, s.flx_i]} numberOfLines={1} ellipsizeMode='tail'>{item.overview}</Text>
+                            <Text style={[s.f4, s.white, s.b, s.flx_i]} ellipsizeMode='tail' numberOfLines={1}>{item.full_name}</Text>
+                            <Text style={[s.f8, s.gray_60, s.b, s.ml1, s.mt1]}>{item.length}</Text>
                         </View>
                     </View>
                 </View>
@@ -123,125 +65,107 @@ const Home = observer((props) => {
         );
     }
 
-    const _renderSeparator = () => {
-        return (
-            <View style={[s.pl4]} />
-        )
-    }
 
-    const _gotoMovieDetail = (item: any) => {
-        route('MovieDetail', { title: item.title, poster_path: item.poster_path, release_date: item.release_date, vote_average: item.vote_average, overview: item.overview, backdrop_path: item.backdrop_path })
 
-    }
 
-    const _onEndReached = () => {
-        if (!isLoading && isNext) {
-            getList(page + 1, '')
+    const getList = (qSearch: string) => {
+        // Cancel previous request
+        if (cancel !== undefined) {
+            cancel()
         }
-    }
-
-    const getList = (pageCurrect: number, type: string) => {
-        setIsLoading(true)
         api.get(Apis.paths.getList, {
             params: {
-                api_key: 'c1618550083ac39008a92222d9c8a6a9',
-                language: 'en-US',
-                page: pageCurrect
-            }
+                q: qSearch
+            },
+            cancelToken: new CancelToken(function executor(c) {
+                cancel = c;
+            })
         }).then(response => {
-            if (type === 'refresh') {
-                setIsLoading(false)
-                setPage(response.data.page)
-                setResultList(response.data.results)
-                setIsNext(response.data.total_pages !== response.data.page)
-            } else {
-                setIsLoading(false)
-                setPage(response.data.page)
-                setResultList([...resultList, ...response.data.results])
-                setIsNext(response.data.total_pages !== response.data.page)
-
-
+            var result = response.data.items
+            if (result.length > 10) {
+                setResultList(_.slice(result, 0, 10))
+            } else
+                setResultList(result)
+        }).catch((error) => {
+            if (axios.isCancel(error)) {
+                console.log("Request canceled");
             }
         })
     }
 
-    const _handleRefresh = () => {
-        getList(1, 'refresh')
+    const onChangeText = (text: string) => {
+        return new Promise<void>((resolve, reject) => {
+            if (text.length > 2) {
+                setTimeout(() => {
+                    getList(text)
+                },
+                    300);
+            }
+            resolve();
+        });
     }
 
-    return (
-        <View style={{ flex: 1, backgroundColor: Colors.black }}>
-            <View style={{}}>
-                <View style={[s.flx_row, s.mh3, s.mt3, s.mb2, s.jcsb, s.aic]}>
-                    <Text style={[s.mv2, s.f3, s.white, s.b]}>{'Movies'}</Text>
-                    <Image
-                        style={{
-                            borderColor: Colors.white,
-                            borderRadius: sizes.br5,
-                            height: PROFILE_IMAGE_SIZE,
-                            width: PROFILE_IMAGE_SIZE,
-                            borderWidth: 1,
-                            overflow: 'hidden'
-                        }}
-                        source={require('~/src/assets/images/test.png')}>
-                    </Image>
+    const onSearch = (searchText: string) => {
+        return new Promise<void>((resolve, reject) => {
+            if (searchText.length > 2) {
+                getList(searchText)
+            }
+            resolve();
+        });
+    }
+
+    const onCancel = () => {
+        return new Promise<void>((resolve, reject) => {
+            resolve();
+        });
+    }
+
+    const checkListEmpty = () => {
+        if (resultList.length == 0) {
+            return (
+                <View style={[s.flx_i, s.aic, s.jcc]}>
+                    <Text style={[s.mv2, s.f3, s.mh3, s.gray_40, s.b]}>{'No data found.'}</Text>
                 </View>
-                <Text style={[s.mv2, s.f4, s.mh3, s.white, s.b]}>{'In theatre'}</Text>
+            )
+        }
+        else {
+            return (
                 <FlatList
-                    style={[s.pv1,]}
-                    showsHorizontalScrollIndicator={false}
-                    horizontal={true}
+                    style={[s.pv1, { marginBottom: sizes.h3 }]}
+                    indicatorStyle={'white'}
                     ListFooterComponent={<View style={[s.pr3]} />}
                     ListHeaderComponent={<View style={[s.pl3]} />}
-                    ItemSeparatorComponent={_renderSeparator}
                     data={resultList}
                     keyExtractor={(item, index) => index.toString()}
-                    renderItem={({ item }) => renderItemHorizontal(item)}
+                    renderItem={({ item }) => renderItemVertical(item)}
                 />
-            </View>
-            <SwipeablePanel
-                callback={(value) => {
-                    if (value > 125) {
-                        setisLarge(true)
-                        setExpand('Minimize')
-                    }
-                    else {
-                        setisLarge(false)
-                        setExpand('Expand')
-                        if (refFlatlist != null) {
-                            refFlatlist.scrollToOffset({ animated: true, offset: 0 });
-                        }
-                    }
-                }}
-                ref={(ref) => refSwipeable = ref}
-                isActive={isPanelActive}
-                onClose={() => closePanel()}
-                fullWidth={true}>
-                <View style={{ flex: 1 }}>
-                    <View style={[s.flx_row, s.jcsb, s.aic]}>
-                        <Text style={[s.mv1, s.f4, s.mh3, s.white, s.b]}>{'Trending'}</Text>
-                        <TouchableOpacity onPress={onPressExpand}>
-                            <Text style={[s.mv1, s.f10, s.mh3, s.sky_blue]}>{`(${expand})`}</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={{ flex: 1 }}>
-                        <FlatList
-                            ref={(ref) => (refFlatlist = ref || undefined)}
-                            style={[s.pv1, { marginBottom: sizes.h3 }]}
-                            showsVerticalScrollIndicator={true}
-                            ListFooterComponent={<View style={[s.pr3]} />}
-                            ListHeaderComponent={<View style={[s.pl3]} />}
-                            data={resultList}
-                            refreshing={isLoading}
-                            onRefresh={_handleRefresh}
-                            onEndReached={_onEndReached}
-                            keyExtractor={(item, index) => index.toString()}
-                            renderItem={({ item }) => renderItemVertical(item)}
-                        />
-                    </View>
-                </View>
-            </SwipeablePanel>
+            )
+        }
 
+    }
+
+
+    return (
+        <View style={{ flex: 1, backgroundColor: colors.gray69 }}>
+            <View style={{ flex: 1 }}>
+                <View style={[s.flx_row, s.jcsb, s.aic]}>
+                    <Text style={[s.mv2, s.f4, s.mh3, s.white, s.b]}>{'Search Github'}</Text>
+                </View>
+                <View style={[s.mh3, s.mb3]}>
+                    <Search
+                        ref={(ref) => refSearch = ref}
+                        onSearch={onSearch}
+                        onChangeText={onChangeText}
+                        onCancel={onCancel}
+                        backgroundColor={colors.primaryRed}
+                        inputStyle={[s.br3]}
+                        borderRadius={sizes.br3}
+                    />
+                </View>
+                <View style={{ flex: 1 }}>
+                    {checkListEmpty()}
+                </View>
+            </View>
 
         </View>
     )

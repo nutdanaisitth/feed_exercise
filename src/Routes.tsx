@@ -8,7 +8,6 @@ import { createBottomTabNavigator } from 'react-navigation-tabs'
 import { sizes, s } from '~/src/themes'
 import colors from './themes/colors'
 import Home from './scene/Home'
-import MovieDetail from './scene/MovieDetail'
 import { Text } from '~/src/components/Text'
 import { goBack } from './common/navigate'
 
@@ -108,18 +107,8 @@ const Routes = createStackNavigator({
     screen: () => <Tabs />,
     navigationOptions: (): any => ({ header: null })
   },
-
-  MovieDetail: {
-    screen: MovieDetail,
-    navigationOptions: (): any => ({
-      ...navigationOptions,
-      headerStyle: {
-        backgroundColor: 'black'
-      },
-    })
-  },
 }, {
   initialRouteName: 'Main'
 })
-const AppFeed: any = createAppContainer(Routes)
-export default AppFeed
+const AppSearch: any = createAppContainer(Routes)
+export default AppSearch
