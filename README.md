@@ -1,4 +1,6 @@
 # search-exercise
-## yarn // install node_modules
+ // install node_modules
+## yarn
 
-## yarn android // run app in android emulator
+// run app in android emulator
+## yarn android 
