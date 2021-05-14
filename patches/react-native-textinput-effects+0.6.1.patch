@@ -1,0 +1,85 @@
+diff --git a/node_modules/react-native-textinput-effects/lib/Kohana.js b/node_modules/react-native-textinput-effects/lib/Kohana.js
+index e019e04..cdf60eb 100644
+--- a/node_modules/react-native-textinput-effects/lib/Kohana.js
++++ b/node_modules/react-native-textinput-effects/lib/Kohana.js
+@@ -3,12 +3,16 @@ import PropTypes from 'prop-types';
+ import {
+   Animated,
+   Easing,
+-  Text,
+   TextInput,
+   TouchableWithoutFeedback,
+   View,
+   StyleSheet,
++  Image
+ } from 'react-native';
++import { Text } from '~/src/components/Text'
++
++import { s ,sizes} from '~/src/themes'
++
+ 
+ import BaseInput from './BaseInput';
+ 
+@@ -19,11 +23,11 @@ export default class Kohana extends BaseInput {
+      * import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+      * iconClass={FontAwesomeIcon}
+      */
+-    iconClass: PropTypes.func.isRequired,
++    // iconClass: PropTypes.func.isRequired,
+     /*
+      * Passed to react-native-vector-icons library as name prop
+      */
+-    iconName: PropTypes.string.isRequired,
++    iconName: PropTypes.number,
+     /*
+      * Passed to react-native-vector-icons library as color prop
+      */
+@@ -38,14 +42,14 @@ export default class Kohana extends BaseInput {
+ 
+   static defaultProps = {
+     easing: Easing.bezier(0.2, 1, 0.3, 1),
+-    iconSize: 25,
++    iconSize: 48,
+     inputPadding: 16,
+     useNativeDriver: false,
+   };
+ 
+   render() {
+     const {
+-      iconClass: Icon,
++      // iconClass: Icon,
+       iconColor,
+       iconSize,
+       iconName,
+@@ -73,14 +77,14 @@ export default class Kohana extends BaseInput {
+                 {
+                   translateX: focusedAnim.interpolate({
+                     inputRange: [0, 1],
+-                    outputRange: [-15 - iconSize, 0],
++                    outputRange: [-15 -sizes.w1 * 1.8, 0],
+                   }),
+                 },
+               ],
+               ...iconContainerStyle,
+             }}
+           >
+-            <Icon name={iconName} color={iconColor} size={iconSize} />
++           <Image resizeMode={'contain'} style={[{ width: sizes.w1 * 1.9, height: sizes.h1 * 1.9, tintColor: iconColor}]} source={iconName} />
+           </Animated.View>
+         </TouchableWithoutFeedback>
+         <TouchableWithoutFeedback onPress={this.focus}>
+diff --git a/node_modules/react-native-textinput-effects/types/types.d.ts b/node_modules/react-native-textinput-effects/types/types.d.ts
+index 7dc2f10..5a19468 100644
+--- a/node_modules/react-native-textinput-effects/types/types.d.ts
++++ b/node_modules/react-native-textinput-effects/types/types.d.ts
+@@ -41,8 +41,8 @@ declare module "react-native-textinput-effects" {
+   }
+ 
+   interface WithIconProps extends CommonProps {
+-    iconClass: React.ComponentClass<any, any>;
+-    iconName: string;
++    iconClass?: React.ComponentClass<any, any>;
++    iconName?: string;
+     iconColor?: string;
+     iconSize?: number;
+   }
