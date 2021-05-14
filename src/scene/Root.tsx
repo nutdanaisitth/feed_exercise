@@ -14,7 +14,7 @@ import {
 } from 'react-native'
 import { observer, inject } from 'mobx-react'
 import Routes from '~/src/Routes'
-import { s } from '~/src/themes'
+import { s, sizes } from '~/src/themes'
 
 
 const { width } = Dimensions.get('window')
@@ -33,11 +33,13 @@ const Root = observer((props) => {
             <Routes ref={navigationRef} />
             {
                 loading.isLoading &&
-                <View style={[s.flx_i, s.absolute_fill, s.bg_transparent_50, s.aic, s.jcc,]}>
+                <View style={[s.flx_i, s.absolute_fill, s.bg_transparent_60, s.aic, s.jcc]}>
+                    <View style={{borderRadius: sizes.br5}}>
                     <Image
-                        source={require('~/src/assets/images/34441-movie-clapboard.gif')}
+                        source={require('~/src/assets/images/labBo.gif')} 
                         style={{ width: width / 3, height: width / 3}}
                     />
+                    </View>
                 </View>
             }
         </View>

@@ -11,6 +11,7 @@ import Home from './scene/Home'
 import MovieDetail from './scene/MovieDetail'
 import { Text } from '~/src/components/Text'
 import { goBack } from './common/navigate'
+import Login from './scene/Login'
 
 
 
@@ -104,6 +105,11 @@ const navigationOptions = {
 }
 
 const Routes = createStackNavigator({
+
+  Login: {
+    screen: Login,
+    navigationOptions: (): any => ({ header: null })
+  },
   Main: {
     screen: () => <Tabs />,
     navigationOptions: (): any => ({ header: null })
@@ -119,7 +125,7 @@ const Routes = createStackNavigator({
     })
   },
 }, {
-  initialRouteName: 'Main'
+  initialRouteName: 'Login'
 })
 const AppFeed: any = createAppContainer(Routes)
 export default AppFeed

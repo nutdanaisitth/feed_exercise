@@ -1,6 +1,6 @@
 export const BaseURLs = {
-    DEV: 'https://api.themoviedb.org',
-    PROD: 'https://api.themoviedb.org'
+    DEV: 'https://reqres.in/',
+    PROD: 'https://reqres.in/'
   }
   
   export const defaultBaseURL = BaseURLs.DEV

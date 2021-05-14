@@ -36,7 +36,7 @@ const Home = observer((props) => {
 
     useEffect(() => {
         openPanel()
-        getList(1, 'refresh')
+        // getList(1, 'refresh')
     }, [])
 
 
@@ -136,37 +136,37 @@ const Home = observer((props) => {
 
     const _onEndReached = () => {
         if (!isLoading && isNext) {
-            getList(page + 1, '')
+            // getList(page + 1, '')
         }
     }
 
-    const getList = (pageCurrect: number, type: string) => {
-        setIsLoading(true)
-        api.get(Apis.paths.getList, {
-            params: {
-                api_key: 'c1618550083ac39008a92222d9c8a6a9',
-                language: 'en-US',
-                page: pageCurrect
-            }
-        }).then(response => {
-            if (type === 'refresh') {
-                setIsLoading(false)
-                setPage(response.data.page)
-                setResultList(response.data.results)
-                setIsNext(response.data.total_pages !== response.data.page)
-            } else {
-                setIsLoading(false)
-                setPage(response.data.page)
-                setResultList([...resultList, ...response.data.results])
-                setIsNext(response.data.total_pages !== response.data.page)
+    // const getList = (pageCurrect: number, type: string) => {
+    //     setIsLoading(true)
+    //     api.get(Apis.paths.getList, {
+    //         params: {
+    //             api_key: 'c1618550083ac39008a92222d9c8a6a9',
+    //             language: 'en-US',
+    //             page: pageCurrect
+    //         }
+    //     }).then(response => {
+    //         if (type === 'refresh') {
+    //             setIsLoading(false)
+    //             setPage(response.data.page)
+    //             setResultList(response.data.results)
+    //             setIsNext(response.data.total_pages !== response.data.page)
+    //         } else {
+    //             setIsLoading(false)
+    //             setPage(response.data.page)
+    //             setResultList([...resultList, ...response.data.results])
+    //             setIsNext(response.data.total_pages !== response.data.page)
 
 
-            }
-        })
-    }
+    //         }
+    //     })
+    // }
 
     const _handleRefresh = () => {
-        getList(1, 'refresh')
+        // getList(1, 'refresh')
     }
 
     return (
@@ -174,7 +174,7 @@ const Home = observer((props) => {
             <View style={{}}>
                 <View style={[s.flx_row, s.mh3, s.mt3, s.mb2, s.jcsb, s.aic]}>
                     <Text style={[s.mv2, s.f3, s.white, s.b]}>{'Movies'}</Text>
-                    <Image
+                    {/* <Image
                         style={{
                             borderColor: Colors.white,
                             borderRadius: sizes.br5,
@@ -184,7 +184,7 @@ const Home = observer((props) => {
                             overflow: 'hidden'
                         }}
                         source={require('~/src/assets/images/test.png')}>
-                    </Image>
+                    </Image> */}
                 </View>
                 <Text style={[s.mv2, s.f4, s.mh3, s.white, s.b]}>{'In theatre'}</Text>
                 <FlatList
