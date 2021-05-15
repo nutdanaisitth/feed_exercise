@@ -1,6 +1,6 @@
 export const BaseURLs = {
-    DEV: 'https://reqres.in/',
-    PROD: 'https://reqres.in/'
+    DEV: 'http://174.138.16.247/',
+    PROD: 'http://174.138.16.247/'
   }
   
   export const defaultBaseURL = BaseURLs.DEV

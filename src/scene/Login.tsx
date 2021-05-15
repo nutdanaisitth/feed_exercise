@@ -23,6 +23,7 @@ import { ScrollView } from 'react-native-gesture-handler'
 import { Kohana } from 'react-native-textinput-effects';
 import { api } from '../api'
 import Apis from '../common/apis'
+import { route } from '../common/navigate'
 
 
 
@@ -35,16 +36,18 @@ const Login = observer((props) => {
 
 
     const loginRequest = () => {
-        debugger
         api.post(Apis.paths.login, {
-            // email: "eve.holt@reqres.in",
-            // password: "cityslicka"
-            email: username,
-            password: password
+            username: "nutdanai",
+            password: "nutdanai2021!"
+            // email: username,
+            // password: password
         }).then(response => {
             debugger
             props.login.access_token = response.data.token
             console.log(response)
+            if(response.status == 200){
+                route('Main')
+            }
 
         })
 

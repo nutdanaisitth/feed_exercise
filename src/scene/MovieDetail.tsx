@@ -61,4 +61,4 @@ const MovieDetail = observer((props) => {
     )
 })
 
-export default inject('loading', 'navigation')(MovieDetail)
+export default inject('loading', 'navigation', 'login')(MovieDetail)
