@@ -31,7 +31,6 @@ const PROFILE_IMAGE_SIZE: number = sizes.h3 / 1.5
 const Home = observer((props) => {
 
 
-
     useEffect(() => {
         getList(1, 'refresh')
     }, [])
@@ -51,10 +50,10 @@ const Home = observer((props) => {
 
     const renderItemVertical = (item) => {
         return (
-            <TouchableOpacity style={[s.mh3, s.mb3, s.br4, { backgroundColor: 'white', borderColor: '#91627b' ,borderWidth:2 }]} onPress={() => _gotoMovieDetail(item)}>
+            <TouchableOpacity style={[s.mh3, s.mb3, s.br4, { backgroundColor: 'white', borderColor: '#91627b', borderWidth: 2 }]} onPress={() => _gotoMovieDetail(item)}>
                 <View style={[s.pa2, s.flx_row]}>
                     <View style={[s.mh2, s.flx_row, s.jcsb, s.flx_i]}>
-                        <View style={[s.flx_col, s.jcc,{}]}>
+                        <View style={[s.flx_col, s.jcc, {}]}>
                             <View style={[s.flx_row]}>
                                 <Image resizeMode={'contain'} style={[{ width: sizes.w1, height: sizes.h1, tintColor: colors.accent }]} source={require('~/src/assets/images/star.png')} />
                                 <Text style={[s.f8, s.black, s.b, s.ml1]} ellipsizeMode='tail' numberOfLines={1}>{'ชื่อโครงการ'}</Text>
@@ -64,12 +63,12 @@ const Home = observer((props) => {
                                 <Image resizeMode={'contain'} style={[{ width: sizes.w1, height: sizes.h1, tintColor: colors.accent }]} source={require('~/src/assets/images/star.png')} />
                                 <Text style={[s.f8, s.black, s.b, s.ml1]} ellipsizeMode='tail' numberOfLines={1}>{'ชื่อ'}</Text>
                             </View>
-                            <Text style={[s.f6, s.black, s.b, s.mb1,s.ml3]} ellipsizeMode='tail' numberOfLines={1}>{item.emp_name}</Text>
+                            <Text style={[s.f6, s.black, s.b, s.mb1, s.ml3]} ellipsizeMode='tail' numberOfLines={1}>{item.emp_name}</Text>
                             <View style={[s.flx_row]}>
                                 <Image resizeMode={'contain'} style={[{ width: sizes.w1, height: sizes.h1, tintColor: colors.accent }]} source={require('~/src/assets/images/star.png')} />
-                                <Text style={[s.f8, s.black, s.b,s.ml1]} ellipsizeMode='tail' numberOfLines={1}>{'สังกัด'}</Text>
+                                <Text style={[s.f8, s.black, s.b, s.ml1]} ellipsizeMode='tail' numberOfLines={1}>{'สังกัด'}</Text>
                             </View>
-                            <Text style={[s.f8, s.black, s.b, s.mb1,s.ml3]} ellipsizeMode='tail' numberOfLines={1}>{item.emp_dep}</Text>
+                            <Text style={[s.f8, s.black, s.b, s.mb1, s.ml3]} ellipsizeMode='tail' numberOfLines={1}>{item.emp_dep}</Text>
                         </View>
                         <View style={[s.flx_col,]}>
                             <Text style={[s.f10, s.black_50, s.b, s.ml1]}>{`created at: (${moment(item.created_at).format('DD/MM/YYYY')})`}</Text>
@@ -112,7 +111,7 @@ const Home = observer((props) => {
                 setPage(response.data.current_page)
                 setResultList(response.data.data)
                 setIsNext(response.data.total !== response.data.current_page)
-            } 
+            }
             // else {
             //     setIsLoading(false)
             //     setPage(response.data.current_page)
@@ -128,12 +127,16 @@ const Home = observer((props) => {
         getList(1, 'refresh')
     }
 
+
     return (
-        <View style={{ flex: 1, backgroundColor: Colors.grayD2, }}>
+        <View style={{ flex: 1, backgroundColor: Colors.grayD2 }}>
             <View style={{ flex: 1 }}>
                 <View style={[s.flx_row, s.jcsb, s.aic]}>
-                    <Text style={[s.mv3, s.f4, s.mh3,  s.b,{color: 'purple'}]}>{'หน้าหลัก'}</Text>
-
+                    <Text style={[s.mv3, s.f4, s.mh3, s.b, { color: 'purple' }]}>{'หน้าหลัก'}</Text>
+                    <TouchableOpacity style={[s.ma3, s.aic, s.br4, s.flx_row, { backgroundColor: 'red' }]} onPress={() => route('AddForm')}>
+                        <Text style={[s.f5, s.white, s.b, s.pa2]}>{'เพิ่มรายการ'}</Text>
+                        <Image resizeMode={'contain'} style={[{ width: sizes.w2, height: sizes.h2 }, s.mr2]} source={require('~/src/assets/images/add.png')} />
+                    </TouchableOpacity>
                 </View>
                 <View style={{ flex: 1 }}>
                     <FlatList

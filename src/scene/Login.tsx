@@ -55,7 +55,7 @@ const Login = observer((props) => {
 
     const usernameInput = (
         <Kohana
-            style={{ backgroundColor: '#f9f5ed', margin: sizes.mt3, borderRadius: sizes.br4, borderWidth: 2, borderColor: '#91627b' }}
+            style={{ backgroundColor: '#f9f5ed', margin: sizes.mt3, borderRadius: sizes.br3, borderWidth: 2, borderColor: '#91627b' }}
             label={'ชื่อผู้ใช้งาน'}
             iconName={require('~/src/assets/images/perm.png')}
             iconColor={colors.accent}
@@ -68,7 +68,7 @@ const Login = observer((props) => {
     );
     const passwordInput = (
         <Kohana
-            style={{ backgroundColor: '#f9f5ed', margin: sizes.mt3, borderRadius: sizes.br4, borderWidth: 2, borderColor: '#91627b' }}
+            style={{ backgroundColor: '#f9f5ed', margin: sizes.mt3, borderRadius: sizes.br3, borderWidth: 2, borderColor: '#91627b' }}
             label={'รหัสผ่าน'}
             iconName={require('~/src/assets/images/key.png')}
             iconColor={colors.accent}
@@ -97,7 +97,7 @@ const Login = observer((props) => {
                     {usernameInput}
                     {passwordInput}
 
-                    <TouchableOpacity style={[s.ma3, s.aic, s.br4, { backgroundColor: 'purple' }]} onPress={loginRequest}>
+                    <TouchableOpacity style={[s.ma3, s.aic, s.br3, { backgroundColor: 'purple' }]} onPress={loginRequest}>
                         <Text style={[s.f5, s.white, s.b, s.pv2]}>{'เข้าสู่ระบบ'}</Text>
 
                     </TouchableOpacity>

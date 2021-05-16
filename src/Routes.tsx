@@ -5,13 +5,14 @@ import {
   createAppContainer
 } from 'react-navigation'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
-import { sizes, s } from '~/src/themes'
+import { sizes, s, Colors } from '~/src/themes'
 import colors from './themes/colors'
 import Home from './scene/Home'
 import MovieDetail from './scene/MovieDetail'
 import { Text } from '~/src/components/Text'
 import { goBack } from './common/navigate'
 import Login from './scene/Login'
+import AddForm from './scene/AddForm'
 
 
 
@@ -96,9 +97,9 @@ const navigationOptions = {
   
   headerLeft: () => (
     <TouchableOpacity style={[s.ml2, s.flx_row, s.aic]} onPress={() => goBack()} >
-      <Image style={[{ width: sizes.w2, height: sizes.h2 }]}
+      <Image style={[{ width: sizes.w2, height: sizes.h2 ,tintColor: 'black'}]}
         source={require('~/src/assets/images/arrow_back.png')} />
-      <Text style={[s.f5, s.white, s.b, s.flx_i]} ellipsizeMode='tail' numberOfLines={1}>{'Back'}</Text>
+      <Text style={[s.f5, s.black, s.b, s.flx_i]} ellipsizeMode='tail' numberOfLines={1}>{'Back'}</Text>
 
     </TouchableOpacity>
   )
@@ -115,12 +116,12 @@ const Routes = createStackNavigator({
     navigationOptions: (): any => ({ header: null })
   },
 
-  MovieDetail: {
-    screen: MovieDetail,
+  AddForm: {
+    screen: AddForm,
     navigationOptions: (): any => ({
       ...navigationOptions,
       headerStyle: {
-        backgroundColor: 'black'
+        // backgroundColor:  'transparent'
       },
     })
   },
