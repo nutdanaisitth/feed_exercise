@@ -33,7 +33,11 @@ const Home = observer((props) => {
 
     useEffect(() => {
         getList(1, 'refresh')
-    }, [])
+    }, [props.responses.success])
+
+    // useEffect(() => {
+    //     getList(1, 'refresh')
+    // }, [])
 
 
     const [resultList, setResultList] = useState([] as any);
@@ -50,7 +54,7 @@ const Home = observer((props) => {
 
     const renderItemVertical = (item) => {
         return (
-            <TouchableOpacity style={[s.mh3, s.mb3, s.br4, { backgroundColor: 'white', borderColor: '#91627b', borderWidth: 2 }]} onPress={() => _gotoMovieDetail(item)}>
+            <TouchableOpacity style={[s.mh3, s.mb3, s.br4, { backgroundColor: 'white', borderColor: '#91627b', borderWidth: 2 }]} onPress={() => _gotoEditForm(item)}>
                 <View style={[s.pa2, s.flx_row]}>
                     <View style={[s.mh2, s.flx_row, s.jcsb, s.flx_i]}>
                         <View style={[s.flx_col, s.jcc, {}]}>
@@ -84,8 +88,20 @@ const Home = observer((props) => {
     }
 
 
-    const _gotoMovieDetail = (item: any) => {
-        route('MovieDetail', { title: item.title, poster_path: item.poster_path, release_date: item.release_date, vote_average: item.vote_average, overview: item.overview, backdrop_path: item.backdrop_path })
+    const _gotoEditForm = (item: any) => {
+        route('EditForm', { 
+            id: item.id,
+            emp_name: item.emp_name, 
+            emp_dep: item.emp_dep, 
+            project_name: item.project_name, 
+            name: item.name, 
+            thai_to_eng_page: item.thai_to_eng_page, 
+            eng_to_thai_page: item.eng_to_thai_page,
+            compose_doc_page: item.compose_doc_page,
+            done_at:item.done_item,
+            note:item.note,
+            created_at:item.created_at
+         })
 
     }
 
@@ -133,9 +149,9 @@ const Home = observer((props) => {
             <View style={{ flex: 1 }}>
                 <View style={[s.flx_row, s.jcsb, s.aic]}>
                     <Text style={[s.mv3, s.f4, s.mh3, s.b, { color: 'purple' }]}>{'หน้าหลัก'}</Text>
-                    <TouchableOpacity style={[s.ma3, s.aic, s.br4, s.flx_row, { backgroundColor: 'red' }]} onPress={() => route('AddForm')}>
-                        <Text style={[s.f5, s.white, s.b, s.pa2]}>{'เพิ่มรายการ'}</Text>
-                        <Image resizeMode={'contain'} style={[{ width: sizes.w2, height: sizes.h2 }, s.mr2]} source={require('~/src/assets/images/add.png')} />
+                    <TouchableOpacity style={[s.ma3, s.aic, s.br3, s.flx_row, { backgroundColor: 'red' }]} onPress={() => route('AddForm')}>
+                        <Text style={[s.f5, s.white, s.b, s.pv2, s.pl3]}>{'เพิ่มรายการ'}</Text>
+                        <Image resizeMode={'contain'} style={[{ width: sizes.w2, height: sizes.h2 }, s.mh2]} source={require('~/src/assets/images/add.png')} />
                     </TouchableOpacity>
                 </View>
                 <View style={{ flex: 1 }}>
@@ -159,4 +175,4 @@ const Home = observer((props) => {
     )
 })
 
-export default inject('loading', 'navigation', 'login')(Home)
+export default inject('loading', 'navigation', 'login', 'responses')(Home)

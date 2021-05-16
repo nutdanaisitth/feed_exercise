@@ -28,13 +28,14 @@ import { goBack, route } from '../common/navigate'
 import moment from 'moment'
 import ReactNativePickerModule from 'react-native-picker-module'
 import DateTimePicker from '@react-native-community/datetimepicker';
+import axios from 'axios'
 
 
 
 
 
 
-const AddForm = observer((props) => {
+const EditForm = observer((props) => {
 
     let refPickerProject = useRef<ReactNativePickerModule>(null)
     let refPickerProjectThaiToEng = useRef<ReactNativePickerModule>(null)
@@ -59,24 +60,29 @@ const AddForm = observer((props) => {
     const [txtNote, StxtNote] = useState('');
 
 
-    const [selectedValue, setSelectedValue] = useState('')
-    const [selectedThaiToEng, setValThaiToEng] = useState('')
-    const [selectedEngToThai, setValEngToThai] = useState('')
-    const [selectedComposeEng, setValComposeEng] = useState('')
+    const [selectedValue, setSelectedValue] = useState(props.navigation.getParam('project_name'))
+    const [selectedThaiToEng, setValThaiToEng] = useState(props.navigation.getParam('thai_to_eng_page') ? props.navigation.getParam('thai_to_eng_page').toString() : props.navigation.getParam('thai_to_eng_page'))
+    const [selectedEngToThai, setValEngToThai] = useState(props.navigation.getParam('eng_to_thai_page') ? props.navigation.getParam('eng_to_thai_page').toString() : props.navigation.getParam('eng_to_thai_page'))
+    const [selectedComposeEng, setValComposeEng] = useState(props.navigation.getParam('compose_doc_page') ? props.navigation.getParam('compose_doc_page').toString() : props.navigation.getParam('compose_doc_page'))
     const [projectName, setProjectName] = useState(['IMPACT 2019', 'IMPACT 2020', 'IMPACT 2021'])
-    const [thaiToEng, setThaiToEng] = useState(['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '100'])
-    const [engToThai, setEngToThai] = useState(['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '100'])
-    const [composeEng, setComposeEng] = useState(['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '100', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '100'])
+    const [thaiToEng, setThaiToEng] = useState(['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'])
+    const [engToThai, setEngToThai] = useState(['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'])
+    const [composeEng, setComposeEng] = useState(['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'])
 
 
-    const [date, setDate] = useState('');
+    const [date, setDate] = useState(moment(props.navigation.getParam('done_at')).format('DD/MM/YYYY'));
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
 
 
-    const loginRequest = () => {
+    const loginRequest = async () => {
+
+
+
         props.responses.clearResponses()
-        api.post(Apis.paths.addFrom, {
+        api.put(Apis.paths.updateForm, {
+            
+            id: props.navigation.getParam('id'),
             txtCreated_at: moment().format('DD-MM-YYYY'),
             txtTitle1: txtTitle1,
             txtHead: txtHead,
@@ -98,14 +104,18 @@ const AddForm = observer((props) => {
                 headers: {
                     'Authorization': "Bearer " + props.login.access_token
                 },
+
             }).then(response => {
-                console.log(response)
-                if (response.status == 200) {
-                    props.responses.setSuccess()
-                    goBack()
-                }else{
-                    alert(response.status)
-                }
+                console.log("response: ", response)
+                // if (response.status === 200) {
+                //     props.responses.setSuccess()
+                //     goBack()
+                // } else {
+                //     alert(response.status)
+                // }
+                // return response
+            }).catch(error => {
+                console.log(error.response);
             })
 
     }
@@ -113,9 +123,9 @@ const AddForm = observer((props) => {
     const saveButton = () => {
         return (
             <View style={[s.flx_row, { flex: 0.5 }, s.jcfe]}>
-                <TouchableOpacity style={[s.mv3, s.br3,s.flx_row ,s.aic,{ backgroundColor: 'purple' }]} onPress={loginRequest}>
+                <TouchableOpacity style={[s.mv3, s.br3, s.flx_row, s.aic, { backgroundColor: 'purple' }]} onPress={loginRequest}>
                     <Text style={[s.f5, s.white, s.b, s.pv2, s.pl4]}>{'บันทึก'}</Text>
-                    <Image resizeMode={'contain'} style={[{ width: sizes.w2, height: sizes.h2 }, s.mr4,s.ml2]} source={require('~/src/assets/images/save.png')} />
+                    <Image resizeMode={'contain'} style={[{ width: sizes.w2, height: sizes.h2 }, s.mr4, s.ml2]} source={require('~/src/assets/images/save.png')} />
                 </TouchableOpacity>
             </View>
         )
@@ -131,7 +141,7 @@ const AddForm = observer((props) => {
             labelStyle={{ color: '#91627b' }}
             inputStyle={{ color: '#91627b' }}
             useNativeDriver
-            value={moment().format('DD/MM/YYYY')}
+            value={moment(props.navigation.getParam('created_at')).format('DD/MM/YYYY')}
             editable={false}
 
         />
@@ -176,6 +186,7 @@ const AddForm = observer((props) => {
             labelStyle={{ color: '#91627b' }}
             inputStyle={{ color: '#91627b' }}
             useNativeDriver
+            value={props.navigation.getParam('emp_name')}
             onChangeText={(text) => { StxtEmpName(text) }}
 
         />
@@ -217,6 +228,7 @@ const AddForm = observer((props) => {
             labelStyle={{ color: '#91627b' }}
             inputStyle={{ color: '#91627b' }}
             useNativeDriver
+            value={props.navigation.getParam('name')}
             onChangeText={(text) => { StxtName(text) }}
         />
     );
@@ -266,6 +278,7 @@ const AddForm = observer((props) => {
             labelStyle={{ color: '#91627b' }}
             inputStyle={{ color: '#91627b' }}
             useNativeDriver
+            value={props.navigation.getParam('note')}
             onChangeText={(text) => { StxtNote(text) }}
             multiline={true}
         />
@@ -347,7 +360,13 @@ const AddForm = observer((props) => {
             <ScrollView >
 
                 <View style={[s.mt2, s.mh3]}>
-                    <Text style={[s.mv2, s.f4, s.b, { color: 'purple' }]}>{'เพิ่มแบบฟอร์ม'}</Text>
+                    <View style={[s.jcsb, s.flx_row, s.aic]}>
+                        <Text style={[s.mv2, s.f4, s.b, { color: 'purple' }]}>{'รายละเอียดแบบฟอร์ม'}</Text>
+                        <TouchableOpacity style={[s.aic, s.br3, s.flx_row, { backgroundColor: 'red' }]} onPress={() => route('AddForm')}>
+                            <Text style={[s.f5, s.white, s.b, s.pv2, s.pl3]}>{'ลบ'}</Text>
+                            <Image resizeMode={'contain'} style={[{ width: sizes.w2, height: sizes.h2 }, s.mh2]} source={require('~/src/assets/images/delete.png')} />
+                        </TouchableOpacity>
+                    </View>
 
                     <Text style={[s.f6, s.black, s.b, s.pv2]}>{'วันที่:'}</Text>
                     {txtCreatedAtInput}
@@ -483,4 +502,4 @@ const AddForm = observer((props) => {
     )
 })
 
-export default inject('loading', 'navigation', 'login', 'responses')(AddForm)
+export default inject('loading', 'navigation', 'login', 'responses')(EditForm)

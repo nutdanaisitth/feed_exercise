@@ -42,7 +42,7 @@ const Login = observer((props) => {
             // email: username,
             // password: password
         }).then(response => {
-            debugger
+            
             props.login.access_token = response.data.token
             console.log(response)
             if(response.status == 200){

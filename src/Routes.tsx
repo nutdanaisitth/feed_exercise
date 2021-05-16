@@ -13,6 +13,7 @@ import { Text } from '~/src/components/Text'
 import { goBack } from './common/navigate'
 import Login from './scene/Login'
 import AddForm from './scene/AddForm'
+import EditForm from './scene/EditForm'
 
 
 
@@ -97,9 +98,9 @@ const navigationOptions = {
   
   headerLeft: () => (
     <TouchableOpacity style={[s.ml2, s.flx_row, s.aic]} onPress={() => goBack()} >
-      <Image style={[{ width: sizes.w2, height: sizes.h2 ,tintColor: 'black'}]}
+      <Image style={[{ width: sizes.w2, height: sizes.h2 ,tintColor: 'white'}]}
         source={require('~/src/assets/images/arrow_back.png')} />
-      <Text style={[s.f5, s.black, s.b, s.flx_i]} ellipsizeMode='tail' numberOfLines={1}>{'Back'}</Text>
+      <Text style={[s.f5, s.white, s.b, s.flx_i]} ellipsizeMode='tail' numberOfLines={1}>{'Back'}</Text>
 
     </TouchableOpacity>
   )
@@ -121,7 +122,16 @@ const Routes = createStackNavigator({
     navigationOptions: (): any => ({
       ...navigationOptions,
       headerStyle: {
-        // backgroundColor:  'transparent'
+        backgroundColor:  'purple'
+      },
+    })
+  },
+  EditForm: {
+    screen: EditForm,
+    navigationOptions: (): any => ({
+      ...navigationOptions,
+      headerStyle: {
+        backgroundColor:  'purple'
       },
     })
   },
