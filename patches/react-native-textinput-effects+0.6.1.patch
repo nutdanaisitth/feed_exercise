@@ -132,6 +132,24 @@ index e019e04..dfd4497 100644
 +
    },
  });
+diff --git a/node_modules/react-native-textinput-effects/lib/index.js b/node_modules/react-native-textinput-effects/lib/index.js
+index 0426d22..2afd9c9 100644
+--- a/node_modules/react-native-textinput-effects/lib/index.js
++++ b/node_modules/react-native-textinput-effects/lib/index.js
+@@ -9,6 +9,7 @@ import Kohana from './Kohana';
+ import Makiko from './Makiko';
+ import Sae from './Sae';
+ import Fumi from './Fumi';
++import BaseInput from './BaseInput';
+ 
+ export {
+   Kaede,
+@@ -22,4 +23,5 @@ export {
+   Makiko,
+   Sae,
+   Fumi,
++  BaseInput
+ };
 diff --git a/node_modules/react-native-textinput-effects/types/types.d.ts b/node_modules/react-native-textinput-effects/types/types.d.ts
 index 7dc2f10..ba99640 100644
 --- a/node_modules/react-native-textinput-effects/types/types.d.ts
