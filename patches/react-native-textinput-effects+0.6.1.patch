@@ -1,8 +1,8 @@
 diff --git a/node_modules/react-native-textinput-effects/lib/Kohana.js b/node_modules/react-native-textinput-effects/lib/Kohana.js
-index e019e04..dfd4497 100644
+index e019e04..75d0db8 100644
 --- a/node_modules/react-native-textinput-effects/lib/Kohana.js
 +++ b/node_modules/react-native-textinput-effects/lib/Kohana.js
-@@ -3,12 +3,16 @@ import PropTypes from 'prop-types';
+@@ -3,14 +3,19 @@ import PropTypes from 'prop-types';
  import {
    Animated,
    Easing,
@@ -19,8 +19,11 @@ index e019e04..dfd4497 100644
 +
  
  import BaseInput from './BaseInput';
++import { color } from 'react-native-reanimated';
  
-@@ -19,11 +23,11 @@ export default class Kohana extends BaseInput {
+ export default class Kohana extends BaseInput {
+   static propTypes = {
+@@ -19,11 +24,11 @@ export default class Kohana extends BaseInput {
       * import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
       * iconClass={FontAwesomeIcon}
       */
@@ -34,7 +37,7 @@ index e019e04..dfd4497 100644
      /*
       * Passed to react-native-vector-icons library as color prop
       */
-@@ -38,14 +42,14 @@ export default class Kohana extends BaseInput {
+@@ -38,14 +43,14 @@ export default class Kohana extends BaseInput {
  
    static defaultProps = {
      easing: Easing.bezier(0.2, 1, 0.3, 1),
@@ -51,7 +54,7 @@ index e019e04..dfd4497 100644
        iconColor,
        iconSize,
        iconName,
-@@ -56,39 +60,42 @@ export default class Kohana extends BaseInput {
+@@ -56,39 +61,42 @@ export default class Kohana extends BaseInput {
        labelStyle,
        iconContainerStyle,
        labelContainerStyle,
@@ -101,7 +104,16 @@ index e019e04..dfd4497 100644
                transform: [
                  {
                    translateX: focusedAnim.interpolate({
-@@ -121,6 +128,10 @@ export default class Kohana extends BaseInput {
+@@ -104,7 +112,7 @@ export default class Kohana extends BaseInput {
+               ...labelContainerStyle,
+             }}
+           >
+-            <Text style={[styles.label, labelStyle]}>
++            <Text style={[styles.label,{color: 'rgba(145,98,123,0.7)'}]}>
+               {label}
+             </Text>
+           </Animated.View>
+@@ -121,6 +129,10 @@ export default class Kohana extends BaseInput {
            onChange={this._onChange}
            underlineColorAndroid={'transparent'}
          />
@@ -112,7 +124,7 @@ index e019e04..dfd4497 100644
        </View>
      );
    }
-@@ -134,14 +145,17 @@ const styles = StyleSheet.create({
+@@ -134,14 +146,17 @@ const styles = StyleSheet.create({
      overflow: 'hidden',
    },
    label: {

@@ -64,9 +64,9 @@ const AddForm = observer((props) => {
     const [selectedEngToThai, setValEngToThai] = useState('')
     const [selectedComposeEng, setValComposeEng] = useState('')
     const [projectName, setProjectName] = useState(['IMPACT 2019', 'IMPACT 2020', 'IMPACT 2021'])
-    const [thaiToEng, setThaiToEng] = useState(['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '100'])
-    const [engToThai, setEngToThai] = useState(['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '100'])
-    const [composeEng, setComposeEng] = useState(['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '100', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '100'])
+    const [thaiToEng, setThaiToEng] = useState(['0', '1', '2', '3', '4', '5'])
+    const [engToThai, setEngToThai] = useState(['0', '1', '2', '3', '4', '5'])
+    const [composeEng, setComposeEng] = useState(['0', '1', '2', '3', '4', '5'])
 
 
     const [date, setDate] = useState('');
@@ -76,8 +76,10 @@ const AddForm = observer((props) => {
 
     const loginRequest = () => {
         props.responses.clearResponses()
+        console.log( date)
+
         api.post(Apis.paths.addFrom, {
-            txtCreated_at: moment().format('DD-MM-YYYY'),
+            txtCreated_at: moment().format('YYYY-MM-DD'),
             txtTitle1: txtTitle1,
             txtHead: txtHead,
             txtEmpName: txtEmpName,
@@ -128,10 +130,9 @@ const AddForm = observer((props) => {
             iconName={require('~/src/assets/images/date.png')}
             iconColor={colors.accent}
             inputPadding={sizes.pa1}
-            labelStyle={{ color: '#91627b' }}
             inputStyle={{ color: '#91627b' }}
             useNativeDriver
-            value={moment().format('DD/MM/YYYY')}
+            value={moment().format('YYYY-MM-DD')}
             editable={false}
 
         />
@@ -145,7 +146,6 @@ const AddForm = observer((props) => {
             iconName={require('~/src/assets/images/sheet.png')}
             iconColor={colors.accent}
             inputPadding={sizes.pa1}
-            labelStyle={{ color: '#91627b' }}
             inputStyle={{ color: '#91627b' }}
             useNativeDriver
             onChangeText={(text) => { StxtTitle1(text) }}
@@ -159,7 +159,6 @@ const AddForm = observer((props) => {
             iconName={require('~/src/assets/images/sheet.png')}
             iconColor={colors.accent}
             inputPadding={sizes.pa1}
-            labelStyle={{ color: '#91627b' }}
             inputStyle={{ color: '#91627b' }}
             useNativeDriver
             onChangeText={(text) => { StxtHead(text) }}
@@ -173,7 +172,6 @@ const AddForm = observer((props) => {
             iconName={require('~/src/assets/images/sheet.png')}
             iconColor={colors.accent}
             inputPadding={sizes.pa1}
-            labelStyle={{ color: '#91627b' }}
             inputStyle={{ color: '#91627b' }}
             useNativeDriver
             onChangeText={(text) => { StxtEmpName(text) }}
@@ -187,7 +185,6 @@ const AddForm = observer((props) => {
             iconName={require('~/src/assets/images/sheet.png')}
             iconColor={colors.accent}
             inputPadding={sizes.pa1}
-            labelStyle={{ color: '#91627b' }}
             inputStyle={{ color: '#91627b' }}
             useNativeDriver
             onChangeText={(text) => { StxtEmpPosition(text) }}
@@ -201,7 +198,6 @@ const AddForm = observer((props) => {
             iconName={require('~/src/assets/images/sheet.png')}
             iconColor={colors.accent}
             inputPadding={sizes.pa1}
-            labelStyle={{ color: '#91627b' }}
             inputStyle={{ color: '#91627b' }}
             useNativeDriver
             onChangeText={(text) => { StxtEmpOrgid(text) }}
@@ -214,7 +210,6 @@ const AddForm = observer((props) => {
             iconName={require('~/src/assets/images/sheet.png')}
             iconColor={colors.accent}
             inputPadding={sizes.pa1}
-            labelStyle={{ color: '#91627b' }}
             inputStyle={{ color: '#91627b' }}
             useNativeDriver
             onChangeText={(text) => { StxtName(text) }}
@@ -227,7 +222,6 @@ const AddForm = observer((props) => {
             iconName={require('~/src/assets/images/sheet.png')}
             iconColor={colors.accent}
             inputPadding={sizes.pa1}
-            labelStyle={{ color: '#91627b' }}
             inputStyle={{ color: '#91627b' }}
             useNativeDriver
             editable={false}
@@ -235,17 +229,17 @@ const AddForm = observer((props) => {
             showIcon={true}
             pointerEvents={'none'}
             pointerEventsProps={'none'}
+            iconShowIcon={require('~/src/assets/images/select.png')}
 
         />
     );
     const txtDoneAtInput = (
         <Kohana
             style={{ backgroundColor: '#f9f5ed', marginBottom: sizes.mt2, borderRadius: sizes.br3, borderWidth: 2, borderColor: '#91627b' }}
-            label={'วัน/เดือน/ปี'}
+            label={'เลือกวันที่จะดำเนินการแล้วเสร็จ'}
             iconName={require('~/src/assets/images/date.png')}
             iconColor={colors.accent}
             inputPadding={sizes.pa1}
-            labelStyle={{ color: '#91627b' }}
             inputStyle={{ color: '#91627b' }}
             useNativeDriver
             editable={false}
@@ -253,6 +247,8 @@ const AddForm = observer((props) => {
             showIcon={true}
             pointerEvents={'none'}
             pointerEventsProps={'none'}
+            iconShowIcon={require('~/src/assets/images/select.png')}
+
 
         />
     );
@@ -263,7 +259,6 @@ const AddForm = observer((props) => {
             iconName={require('~/src/assets/images/sheet.png')}
             iconColor={colors.accent}
             inputPadding={sizes.pa1}
-            labelStyle={{ color: '#91627b' }}
             inputStyle={{ color: '#91627b' }}
             useNativeDriver
             onChangeText={(text) => { StxtNote(text) }}
@@ -277,7 +272,6 @@ const AddForm = observer((props) => {
             iconName={require('~/src/assets/images/sheet.png')}
             iconColor={colors.accent}
             inputPadding={sizes.pa1}
-            labelStyle={{ color: '#91627b' }}
             inputStyle={{ color: '#91627b' }}
             useNativeDriver
             editable={false}
@@ -285,6 +279,8 @@ const AddForm = observer((props) => {
             showIcon={true}
             pointerEvents={'none'}
             pointerEventsProps={'none'}
+            iconShowIcon={require('~/src/assets/images/select.png')}
+
 
         />
     );
@@ -295,7 +291,6 @@ const AddForm = observer((props) => {
             iconName={require('~/src/assets/images/sheet.png')}
             iconColor={colors.accent}
             inputPadding={sizes.pa1}
-            labelStyle={{ color: '#91627b' }}
             inputStyle={{ color: '#91627b' }}
             useNativeDriver
             editable={false}
@@ -303,6 +298,8 @@ const AddForm = observer((props) => {
             showIcon={true}
             pointerEvents={'none'}
             pointerEventsProps={'none'}
+            iconShowIcon={require('~/src/assets/images/select.png')}
+
 
         />
     );
@@ -313,7 +310,6 @@ const AddForm = observer((props) => {
             iconName={require('~/src/assets/images/sheet.png')}
             iconColor={colors.accent}
             inputPadding={sizes.pa1}
-            labelStyle={{ color: '#91627b' }}
             inputStyle={{ color: '#91627b' }}
             useNativeDriver
             editable={false}
@@ -321,6 +317,8 @@ const AddForm = observer((props) => {
             showIcon={true}
             pointerEvents={'none'}
             pointerEventsProps={'none'}
+            iconShowIcon={require('~/src/assets/images/select.png')}
+
 
         />
     );
@@ -332,7 +330,7 @@ const AddForm = observer((props) => {
             setDate('')
             // refDatePicker.value = null
         } else {
-            setDate(moment(selectedDate).format('DD/MM/YYYY'));
+            setDate(moment(selectedDate).format('YYYY-MM-DD'));
         }
         // console.log(moment(currentDate).format('DD/MM/YYYY'))
 

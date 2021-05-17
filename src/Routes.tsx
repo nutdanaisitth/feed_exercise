@@ -64,7 +64,7 @@ const BottomTabNavigator = createBottomTabNavigator(
     style: {
       borderTopLeftRadius: sizes.br4,
       borderTopRightRadius: sizes.br4,
-      backgroundColor: '#242526',
+      backgroundColor: 'purple',
       height: sizes.h3,
       position: 'absolute',
       borderTopWidth: 0

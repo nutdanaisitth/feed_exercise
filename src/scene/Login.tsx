@@ -37,8 +37,8 @@ const Login = observer((props) => {
 
     const loginRequest = () => {
         api.post(Apis.paths.login, {
-            username: "nutdanai",
-            password: "nutdanai2021!"
+            username: username,
+            password: password
             // email: username,
             // password: password
         }).then(response => {
@@ -47,6 +47,8 @@ const Login = observer((props) => {
             console.log(response)
             if(response.status == 200){
                 route('Main')
+            }else{
+                alert(response.status)
             }
 
         })
@@ -60,7 +62,6 @@ const Login = observer((props) => {
             iconName={require('~/src/assets/images/perm.png')}
             iconColor={colors.accent}
             inputPadding={sizes.pa2 * 1.3}
-            labelStyle={{ color: '#91627b' }}
             inputStyle={{ color: '#91627b' }}
             useNativeDriver
             onChangeText={(text) => {setUsername(text)}}
@@ -73,7 +74,6 @@ const Login = observer((props) => {
             iconName={require('~/src/assets/images/key.png')}
             iconColor={colors.accent}
             inputPadding={sizes.pa2 * 1.3}
-            labelStyle={{ color: '#91627b' }}
             inputStyle={{ color: '#91627b' }}
             useNativeDriver
             onChangeText={(text) => {setPassword(text)}}

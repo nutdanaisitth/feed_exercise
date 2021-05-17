@@ -48,16 +48,16 @@ const EditForm = observer((props) => {
     const [txtCreated_at, StxtCreated_at] = useState('');
     const [txtTitle1, StxtTitle1] = useState('');
     const [txtHead, StxtHead] = useState('');
-    const [txtEmpName, StxtEmpName] = useState('');
+    const [txtEmpName, StxtEmpName] = useState(props.navigation.getParam('emp_name'));
     const [txtEmpPosition, StxtEmpPosition] = useState('');
     const [txtEmpOrgid, StxtEmpOrgid] = useState('');
     // const [txtProject, StxtProject] = useState('');
-    const [txtName, StxtName] = useState('');
+    const [txtName, StxtName] = useState(props.navigation.getParam('name'));
     // const [thai_to_eng_page, Sthai_to_eng_page] = useState('');
     // const [eng_to_thai_page, Seng_to_thai_page] = useState('');
     // const [compose_doc_page, Scompose_doc_page] = useState('');
     const [done_at, Sdone_at] = useState('');
-    const [txtNote, StxtNote] = useState('');
+    const [txtNote, StxtNote] = useState(props.navigation.getParam('note'));
 
 
     const [selectedValue, setSelectedValue] = useState(props.navigation.getParam('project_name'))
@@ -65,54 +65,54 @@ const EditForm = observer((props) => {
     const [selectedEngToThai, setValEngToThai] = useState(props.navigation.getParam('eng_to_thai_page') ? props.navigation.getParam('eng_to_thai_page').toString() : props.navigation.getParam('eng_to_thai_page'))
     const [selectedComposeEng, setValComposeEng] = useState(props.navigation.getParam('compose_doc_page') ? props.navigation.getParam('compose_doc_page').toString() : props.navigation.getParam('compose_doc_page'))
     const [projectName, setProjectName] = useState(['IMPACT 2019', 'IMPACT 2020', 'IMPACT 2021'])
-    const [thaiToEng, setThaiToEng] = useState(['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'])
-    const [engToThai, setEngToThai] = useState(['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'])
-    const [composeEng, setComposeEng] = useState(['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'])
+    const [thaiToEng, setThaiToEng] = useState(['0', '1', '2', '3', '4', '5'])
+    const [engToThai, setEngToThai] = useState(['0', '1', '2', '3', '4', '5'])
+    const [composeEng, setComposeEng] = useState(['0', '1', '2', '3', '4', '5'])
 
 
-    const [date, setDate] = useState(moment(props.navigation.getParam('done_at')).format('DD/MM/YYYY'));
-    const [mode, setMode] = useState('date');
+    const [date, setDate] = useState(moment(props.navigation.getParam('done_at')).format('YYYY-MM-DD'));
     const [show, setShow] = useState(false);
 
 
-    const loginRequest = async () => {
-
-
-
+    const editFormRequest = async () => {
         props.responses.clearResponses()
+
+
         api.put(Apis.paths.updateForm, {
-            
-            id: props.navigation.getParam('id'),
-            txtCreated_at: moment().format('DD-MM-YYYY'),
-            txtTitle1: txtTitle1,
-            txtHead: txtHead,
-            txtEmpName: txtEmpName,
-            txtEmpPosition: txtEmpPosition,
-            txtEmpOrgid: txtEmpOrgid,
-            txtProject: selectedValue,
-            txtName: txtName,
-            thai_to_eng_page_title: "1",
-            thai_to_eng_page: selectedThaiToEng,
-            eng_to_thai_page_title: "1",
-            eng_to_thai_page: selectedEngToThai,
-            compose_doc_page_title: "1",
-            compose_doc_page: selectedComposeEng,
-            done_at: date,
-            txtNote: txtNote,
+           
+           
+            "id":  props.navigation.getParam('id'),
+            "txtCreated_at": moment().format('YYYY-MM-DD'),
+            "txtTitle1": txtTitle1,
+            "txtHead": txtHead,
+            "txtEmpName": txtEmpName,
+            "txtEmpPosition": txtEmpPosition,
+            "txtEmpOrgid": txtEmpOrgid,
+            "txtProject": selectedValue,
+            "txtName": txtName,
+            "thai_to_eng_page_title": "1",
+            "thai_to_eng_page": selectedThaiToEng,
+            "eng_to_thai_page_title": "1",
+            "eng_to_thai_page": selectedEngToThai,
+            "compose_doc_page_title": "1",
+            "compose_doc_page": selectedComposeEng,
+            "done_at": date,
+            "txtNote": txtNote
         },
             {
                 headers: {
-                    'Authorization': "Bearer " + props.login.access_token
+                    'Content-Type': 'application/json',
+                    'Authorization': "Bearer " + props.login.access_token,
                 },
 
             }).then(response => {
                 console.log("response: ", response)
-                // if (response.status === 200) {
-                //     props.responses.setSuccess()
-                //     goBack()
-                // } else {
-                //     alert(response.status)
-                // }
+                if (response.status === 200) {
+                    props.responses.setSuccess()
+                    goBack()
+                } else {
+                    alert(response.status)
+                }
                 // return response
             }).catch(error => {
                 console.log(error.response);
@@ -120,10 +120,28 @@ const EditForm = observer((props) => {
 
     }
 
+    const deleteFormRequest = async () => {
+        props.responses.clearResponses()
+        api.delete(Apis.paths.deleteForm + props.navigation.getParam('id'), {
+            headers: {
+                Authorization: "Bearer " + props.login.access_token
+            },
+        }).then(response => {
+            console.log(response)
+            if (response.status == 200) {
+                props.responses.setSuccess()
+                goBack()
+            } else {
+                alert(response.status)
+            }
+        })
+
+    }
+
     const saveButton = () => {
         return (
             <View style={[s.flx_row, { flex: 0.5 }, s.jcfe]}>
-                <TouchableOpacity style={[s.mv3, s.br3, s.flx_row, s.aic, { backgroundColor: 'purple' }]} onPress={loginRequest}>
+                <TouchableOpacity style={[s.mv3, s.br3, s.flx_row, s.aic, { backgroundColor: 'purple' }]} onPress={editFormRequest}>
                     <Text style={[s.f5, s.white, s.b, s.pv2, s.pl4]}>{'บันทึก'}</Text>
                     <Image resizeMode={'contain'} style={[{ width: sizes.w2, height: sizes.h2 }, s.mr4, s.ml2]} source={require('~/src/assets/images/save.png')} />
                 </TouchableOpacity>
@@ -138,7 +156,6 @@ const EditForm = observer((props) => {
             iconName={require('~/src/assets/images/date.png')}
             iconColor={colors.accent}
             inputPadding={sizes.pa1}
-            labelStyle={{ color: '#91627b' }}
             inputStyle={{ color: '#91627b' }}
             useNativeDriver
             value={moment(props.navigation.getParam('created_at')).format('DD/MM/YYYY')}
@@ -155,7 +172,6 @@ const EditForm = observer((props) => {
             iconName={require('~/src/assets/images/sheet.png')}
             iconColor={colors.accent}
             inputPadding={sizes.pa1}
-            labelStyle={{ color: '#91627b' }}
             inputStyle={{ color: '#91627b' }}
             useNativeDriver
             onChangeText={(text) => { StxtTitle1(text) }}
@@ -169,7 +185,6 @@ const EditForm = observer((props) => {
             iconName={require('~/src/assets/images/sheet.png')}
             iconColor={colors.accent}
             inputPadding={sizes.pa1}
-            labelStyle={{ color: '#91627b' }}
             inputStyle={{ color: '#91627b' }}
             useNativeDriver
             onChangeText={(text) => { StxtHead(text) }}
@@ -183,10 +198,8 @@ const EditForm = observer((props) => {
             iconName={require('~/src/assets/images/sheet.png')}
             iconColor={colors.accent}
             inputPadding={sizes.pa1}
-            labelStyle={{ color: '#91627b' }}
             inputStyle={{ color: '#91627b' }}
             useNativeDriver
-            value={props.navigation.getParam('emp_name')}
             onChangeText={(text) => { StxtEmpName(text) }}
 
         />
@@ -198,7 +211,6 @@ const EditForm = observer((props) => {
             iconName={require('~/src/assets/images/sheet.png')}
             iconColor={colors.accent}
             inputPadding={sizes.pa1}
-            labelStyle={{ color: '#91627b' }}
             inputStyle={{ color: '#91627b' }}
             useNativeDriver
             onChangeText={(text) => { StxtEmpPosition(text) }}
@@ -212,7 +224,6 @@ const EditForm = observer((props) => {
             iconName={require('~/src/assets/images/sheet.png')}
             iconColor={colors.accent}
             inputPadding={sizes.pa1}
-            labelStyle={{ color: '#91627b' }}
             inputStyle={{ color: '#91627b' }}
             useNativeDriver
             onChangeText={(text) => { StxtEmpOrgid(text) }}
@@ -225,10 +236,8 @@ const EditForm = observer((props) => {
             iconName={require('~/src/assets/images/sheet.png')}
             iconColor={colors.accent}
             inputPadding={sizes.pa1}
-            labelStyle={{ color: '#91627b' }}
             inputStyle={{ color: '#91627b' }}
             useNativeDriver
-            value={props.navigation.getParam('name')}
             onChangeText={(text) => { StxtName(text) }}
         />
     );
@@ -239,7 +248,6 @@ const EditForm = observer((props) => {
             iconName={require('~/src/assets/images/sheet.png')}
             iconColor={colors.accent}
             inputPadding={sizes.pa1}
-            labelStyle={{ color: '#91627b' }}
             inputStyle={{ color: '#91627b' }}
             useNativeDriver
             editable={false}
@@ -247,17 +255,18 @@ const EditForm = observer((props) => {
             showIcon={true}
             pointerEvents={'none'}
             pointerEventsProps={'none'}
+            iconShowIcon={require('~/src/assets/images/select.png')}
+
 
         />
     );
     const txtDoneAtInput = (
         <Kohana
             style={{ backgroundColor: '#f9f5ed', marginBottom: sizes.mt2, borderRadius: sizes.br3, borderWidth: 2, borderColor: '#91627b' }}
-            label={'วัน/เดือน/ปี'}
+            label={'เลือกวันที่จะดำเนินการแล้วเสร็จ'}
             iconName={require('~/src/assets/images/date.png')}
             iconColor={colors.accent}
             inputPadding={sizes.pa1}
-            labelStyle={{ color: '#91627b' }}
             inputStyle={{ color: '#91627b' }}
             useNativeDriver
             editable={false}
@@ -265,6 +274,7 @@ const EditForm = observer((props) => {
             showIcon={true}
             pointerEvents={'none'}
             pointerEventsProps={'none'}
+            iconShowIcon={require('~/src/assets/images/select.png')}
 
         />
     );
@@ -275,22 +285,20 @@ const EditForm = observer((props) => {
             iconName={require('~/src/assets/images/sheet.png')}
             iconColor={colors.accent}
             inputPadding={sizes.pa1}
-            labelStyle={{ color: '#91627b' }}
             inputStyle={{ color: '#91627b' }}
             useNativeDriver
-            value={props.navigation.getParam('note')}
             onChangeText={(text) => { StxtNote(text) }}
             multiline={true}
         />
     );
     const txtThaiToEngInput = (
         <Kohana
+
             style={{ backgroundColor: '#f9f5ed', marginBottom: sizes.mt2, borderRadius: sizes.br3, borderWidth: 2, borderColor: '#91627b' }}
             label={'เลือก'}
             iconName={require('~/src/assets/images/sheet.png')}
             iconColor={colors.accent}
             inputPadding={sizes.pa1}
-            labelStyle={{ color: '#91627b' }}
             inputStyle={{ color: '#91627b' }}
             useNativeDriver
             editable={false}
@@ -298,6 +306,8 @@ const EditForm = observer((props) => {
             showIcon={true}
             pointerEvents={'none'}
             pointerEventsProps={'none'}
+            iconShowIcon={require('~/src/assets/images/select.png')}
+
 
         />
     );
@@ -308,7 +318,6 @@ const EditForm = observer((props) => {
             iconName={require('~/src/assets/images/sheet.png')}
             iconColor={colors.accent}
             inputPadding={sizes.pa1}
-            labelStyle={{ color: '#91627b' }}
             inputStyle={{ color: '#91627b' }}
             useNativeDriver
             editable={false}
@@ -316,6 +325,8 @@ const EditForm = observer((props) => {
             showIcon={true}
             pointerEvents={'none'}
             pointerEventsProps={'none'}
+            iconShowIcon={require('~/src/assets/images/select.png')}
+
 
         />
     );
@@ -326,7 +337,6 @@ const EditForm = observer((props) => {
             iconName={require('~/src/assets/images/sheet.png')}
             iconColor={colors.accent}
             inputPadding={sizes.pa1}
-            labelStyle={{ color: '#91627b' }}
             inputStyle={{ color: '#91627b' }}
             useNativeDriver
             editable={false}
@@ -334,6 +344,8 @@ const EditForm = observer((props) => {
             showIcon={true}
             pointerEvents={'none'}
             pointerEventsProps={'none'}
+            iconShowIcon={require('~/src/assets/images/select.png')}
+
 
         />
     );
@@ -362,7 +374,7 @@ const EditForm = observer((props) => {
                 <View style={[s.mt2, s.mh3]}>
                     <View style={[s.jcsb, s.flx_row, s.aic]}>
                         <Text style={[s.mv2, s.f4, s.b, { color: 'purple' }]}>{'รายละเอียดแบบฟอร์ม'}</Text>
-                        <TouchableOpacity style={[s.aic, s.br3, s.flx_row, { backgroundColor: 'red' }]} onPress={() => route('AddForm')}>
+                        <TouchableOpacity style={[s.aic, s.br3, s.flx_row, { backgroundColor: 'red' }]} onPress={deleteFormRequest}>
                             <Text style={[s.f5, s.white, s.b, s.pv2, s.pl3]}>{'ลบ'}</Text>
                             <Image resizeMode={'contain'} style={[{ width: sizes.w2, height: sizes.h2 }, s.mh2]} source={require('~/src/assets/images/delete.png')} />
                         </TouchableOpacity>
