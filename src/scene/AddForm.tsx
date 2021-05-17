@@ -373,7 +373,7 @@ const AddForm = observer((props) => {
                         <Text style={[s.f6, s.black, s.b, s.pv2]}>{'ภาษาไทยเป็นภาษาอังกฤษ โดยมีต้นฉบับภาษาไทย'}</Text>
                         <View style={[s.flx_row]}>
                             <Text style={[s.f6, s.black, s.b, s.pv2, s.mr3]}>{'จำนวน'}</Text>
-                            <TouchableOpacity onPress={() => refPickerProjectThaiToEng.current?.show()} style={[{ flex: 0.45 }]}>
+                            <TouchableOpacity onPress={() => refPickerProjectThaiToEng.current?.show()} style={[{ flex: 0.6 }]}>
                                 {txtThaiToEngInput}
                             </TouchableOpacity>
                             <Text style={[s.f6, s.black, s.b, s.pv2, s.ml3]}>{'หน้า'}</Text>
@@ -381,7 +381,7 @@ const AddForm = observer((props) => {
                         <Text style={[s.f6, s.black, s.b, s.pv2]}>{'ภาษาอังกฤษเป็นภาษาอังกฤษ โดยมีต้นฉบับภาษาอังกฤษ'}</Text>
                         <View style={[s.flx_row, s.flx_i]}>
                             <Text style={[s.f6, s.black, s.b, s.pv2, s.mr3]}>{'จำนวน'}</Text>
-                            <TouchableOpacity onPress={() => refPickerProjectEngToThai.current?.show()} style={[{ flex: 0.45 }]}>
+                            <TouchableOpacity onPress={() => refPickerProjectEngToThai.current?.show()} style={[{ flex: 0.6 }]}>
                                 {txtEngToThaiInput}
                             </TouchableOpacity>
                             <Text style={[s.f6, s.black, s.b, s.pv2, s.ml3]}>{'หน้า'}</Text>
@@ -395,7 +395,7 @@ const AddForm = observer((props) => {
                     <Text style={[s.f6, s.black, s.b, s.pv2]}>{'โดยมีต้นฉบับภาษาอังกฤษ'}</Text>
                     <View style={[s.flx_row]}>
                         <Text style={[s.f6, s.black, s.b, s.pv2, s.mr3]}>{'จำนวน'}</Text>
-                        <TouchableOpacity onPress={() => refPickerProjectComposeEng.current?.show()} style={[{ flex: 0.45 }]}>
+                        <TouchableOpacity onPress={() => refPickerProjectComposeEng.current?.show()} style={[{ flex: 0.6 }]}>
                             {txtComposeEngInput}
                         </TouchableOpacity>
                         <Text style={[s.f6, s.black, s.b, s.pv2, s.ml3]}>{'หน้า'}</Text>

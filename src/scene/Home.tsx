@@ -56,7 +56,7 @@ const Home = observer((props) => {
         return (
             <TouchableOpacity style={[s.mh3, s.mb3, s.br4, { backgroundColor: 'white', borderColor: '#91627b', borderWidth: 2 }]} onPress={() => _gotoEditForm(item)}>
                 <View style={[s.pa2, s.flx_row]}>
-                    <View style={[s.mh2, s.flx_row, s.jcsb, s.flx_i]}>
+                    <View style={[ s.flx_row, s.jcsb, s.flx_i]}>
                         <View style={[s.flx_col, s.jcc, {}]}>
                             <View style={[s.flx_row]}>
                                 <Image resizeMode={'contain'} style={[{ width: sizes.w1, height: sizes.h1, tintColor: colors.accent }]} source={require('~/src/assets/images/star.png')} />

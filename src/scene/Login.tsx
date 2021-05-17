@@ -42,13 +42,12 @@ const Login = observer((props) => {
             // email: username,
             // password: password
         }).then(response => {
-            
-            props.login.access_token = response.data.token
-            console.log(response)
-            if(response.status == 200){
+            console.log(response.data.message)
+            if(response.status == 200 && response.data.message == null){
+                props.login.access_token = response.data.token
                 route('Main')
             }else{
-                alert(response.status)
+                alert('ชื่อผู้ใช้งานหรือรหัสผ่านผิด')
             }
 
         })

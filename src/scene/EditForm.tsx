@@ -158,7 +158,7 @@ const EditForm = observer((props) => {
             inputPadding={sizes.pa1}
             inputStyle={{ color: '#91627b' }}
             useNativeDriver
-            value={moment(props.navigation.getParam('created_at')).format('DD/MM/YYYY')}
+            value={moment(props.navigation.getParam('created_at')).format('YYYY-MM-DD')}
             editable={false}
 
         />
@@ -357,7 +357,7 @@ const EditForm = observer((props) => {
             setDate('')
             // refDatePicker.value = null
         } else {
-            setDate(moment(selectedDate).format('DD/MM/YYYY'));
+            setDate(moment(selectedDate).format('YYYY-MM-DD'));
         }
         // console.log(moment(currentDate).format('DD/MM/YYYY'))
 
@@ -406,7 +406,7 @@ const EditForm = observer((props) => {
                         <Text style={[s.f6, s.black, s.b, s.pv2]}>{'ภาษาไทยเป็นภาษาอังกฤษ โดยมีต้นฉบับภาษาไทย'}</Text>
                         <View style={[s.flx_row]}>
                             <Text style={[s.f6, s.black, s.b, s.pv2, s.mr3]}>{'จำนวน'}</Text>
-                            <TouchableOpacity onPress={() => refPickerProjectThaiToEng.current?.show()} style={[{ flex: 0.45 }]}>
+                            <TouchableOpacity onPress={() => refPickerProjectThaiToEng.current?.show()} style={[{ flex: 0.6 }]}>
                                 {txtThaiToEngInput}
                             </TouchableOpacity>
                             <Text style={[s.f6, s.black, s.b, s.pv2, s.ml3]}>{'หน้า'}</Text>
@@ -414,7 +414,7 @@ const EditForm = observer((props) => {
                         <Text style={[s.f6, s.black, s.b, s.pv2]}>{'ภาษาอังกฤษเป็นภาษาอังกฤษ โดยมีต้นฉบับภาษาอังกฤษ'}</Text>
                         <View style={[s.flx_row, s.flx_i]}>
                             <Text style={[s.f6, s.black, s.b, s.pv2, s.mr3]}>{'จำนวน'}</Text>
-                            <TouchableOpacity onPress={() => refPickerProjectEngToThai.current?.show()} style={[{ flex: 0.45 }]}>
+                            <TouchableOpacity onPress={() => refPickerProjectEngToThai.current?.show()} style={[{ flex: 0.6 }]}>
                                 {txtEngToThaiInput}
                             </TouchableOpacity>
                             <Text style={[s.f6, s.black, s.b, s.pv2, s.ml3]}>{'หน้า'}</Text>
@@ -428,7 +428,7 @@ const EditForm = observer((props) => {
                     <Text style={[s.f6, s.black, s.b, s.pv2]}>{'โดยมีต้นฉบับภาษาอังกฤษ'}</Text>
                     <View style={[s.flx_row]}>
                         <Text style={[s.f6, s.black, s.b, s.pv2, s.mr3]}>{'จำนวน'}</Text>
-                        <TouchableOpacity onPress={() => refPickerProjectComposeEng.current?.show()} style={[{ flex: 0.45 }]}>
+                        <TouchableOpacity onPress={() => refPickerProjectComposeEng.current?.show()} style={[{ flex: 0.6 }]}>
                             {txtComposeEngInput}
                         </TouchableOpacity>
                         <Text style={[s.f6, s.black, s.b, s.pv2, s.ml3]}>{'หน้า'}</Text>
